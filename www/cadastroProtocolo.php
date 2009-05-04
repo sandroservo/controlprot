@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <style>
 
 
@@ -40,11 +44,11 @@ function formulario(){
 
 
 echo "
-<form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" action=\"cadastroEmpresa.php\">
+<form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" action=\"cadastroProtocolo.php\">
 <table border=\"0\" align=center>
 <tr>
-  <td class=\"descCampo\" ><label for=\"cpfCnpj\">Cpf/Cnpj:</label></td>
-  <td><input type=\"text\" maxlength=\"18\" size=\"18\" name=\"cpfCnpj\" id=\"cpfCnpj\"></td>
+  <td class=\"descCampo\" ><label for=\"cpfCnpjCliente\">Cpf/Cnpj:</label></td>
+  <td><input type=\"text\" maxlength=\"18\" size=\"18\" name=\"cpfCnpjCliente\" id=\"cpfCnpjCliente\"></td>
   <td class=\"descCampo\" ><label for=\"nome\">Nome:</label></td>
   <td><input type=\"text\" maxlength=\"40\" size=\"30\" name=\"nome\" id=\"nome\"></td>
   <td rowspan=2 align=\"center\"><input type=\"submit\" value=\"Incluir\" name=\"incluir\" >
@@ -66,55 +70,80 @@ echo "
     <th>Obs</th>
 </tr>
 </thead>
-<tbody>";
+";
 
     $sql = "select * from itemprotocolo A
             join
             protocolo B
             on A.codProtocolo = B.codProtocolo
-            where A.codProtocolo = '0001/09'";
+            where A.codProtocolo ='".$_SESSION['codProtocolo']."'";
     $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
 
 while ($linha = mysql_fetch_array($resultado)){
-echo "<tr>
-    <td>asdf</td>
-    <td>asdf</td>
-    <td>asdf</td>
-    <td>asdf</td>
-</tr>";
-
-echo "</tbody>
-</table>
-</div>
-</form>";
-
-}
+echo "
+    <tbody>
+    <tr>
+        <td>".$linha['nomeCliente']."</td>
+        <td>".$linha['cpfCnpjCliente']."</td>
+        <td>".$linha['tipo']."</td>
+        <td>".$linha['obs']."</td>
+    </tr>";
+        }
+        echo "</tbody>
+    </table>
+    </div>
+    </form>";
 }
 //fim formulario
 
 //insere campos por sql no banco de dados
-function gravar(){
+function gravarCabecalho(){
 
 
-$empresa = $_POST['empresa'];
-$cidade = $_POST['cidade'];
-$status = $_POST['status'];
-$estado = $_POST['estado'];
-$sql = "INSERT INTO empresa (codEmpresa,nome,cidade,estado,status) VALUES (' ','$empresa','$cidade','$estado','$status')";
-$resultadosql = mysql_query($sql) or die ("erro sql".mysql_error());
-echo "<div class=msg>Registro gravado com sucesso</div>";
+if (isset($_SESSION['codProtocolo'])){
+    gravarItemProtocolo();
+    }else{
+        $sql2 = "select * from protocolo order by codProtocolo desc limit 1 ";//busca o ultimo cod que está no banco
+        $resultado2 = mysql_query($sql2) or die ("erro sqlGravarCabecalho".mysql_error());
+        $dado2 = mysql_fetch_assoc($resultado2);
+        $codProtocolo = $dado2['codProtocolo']+1;//acrescenta + 1 no codigo que buscou do banco
+
+        $_SESSION['codProtocolo'] = $codProtocolo;
+
+        $sql = "INSERT INTO protocolo (codProtocolo,dataCriacao,status,codUsuario,codEmpresa,quantidadeContratos) VALUES ('$codProtocolo',now(),'A','1','1','0')";
+        $resultadosql = mysql_query($sql) or die ("erro sql GravarCabecalho 2".mysql_error());
+}
+
+
 
 };
 //fim gravar
 
-if (!array_key_exists("salvar",$_POST)){
+function gravarItemProtocolo(){
+    $nome = $_POST['nome'];
+    $cpfCnpjCliente = $_POST['cpfCnpjCliente'];
+    $obs = $_POST['obs'];
+echo $_SESSION['codProtocolo'];
+    $sql = "INSERT INTO itemprotocolo (cpfCnpjCliente,nomeCliente,tipo,codProtocolo,obs,dataPagamento,documento)
+            VALUES ('$cpfCnpjCliente','$nome','N','".$_SESSION['codProtocolo']."','$obs','0000-00-00','nada')";
+    $resultadosql = mysql_query($sql) or die ("erro sql gravarItemProtocolo".mysql_error());
+}
+
+
+
+
+
+
+if (!array_key_exists("incluir",$_POST)){
+echo "entro no primeiro;";
 formulario();
    }
    else{
-   gravar();
+gravarCabecalho();
    formulario();
+   echo "entro no segundo;";
 
-     }
+    }
 
 
 ?>
