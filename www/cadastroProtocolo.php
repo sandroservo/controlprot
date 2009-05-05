@@ -12,7 +12,7 @@ border-width:1px;
 font-family:verdana;
 font-size:12px;
 }
-label, select{
+label, select, table{
 font-family:verdana;
 font-size:12px;
 }
@@ -21,6 +21,17 @@ font-size:12px;
     background-color:silver;
     font-weight:bold;
 
+}
+
+.resultCampo{
+    padding-bottom:5;
+}
+
+.tabItemProtocolo{
+    border:1px;
+    border-style:solid;
+    border-color:black;
+    
 }
 .msg{
     position:relative;
@@ -39,69 +50,87 @@ font-size:12px;
 <?php
 require "conectar.php";
 
+//inicio formulario
 function formulario(){
-
-
 
 echo "
 <form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" action=\"cadastroProtocolo.php\">
 <table border=\"0\" align=center>
 <tr>
   <td class=\"descCampo\" ><label for=\"cpfCnpjCliente\">Cpf/Cnpj:</label></td>
-  <td><input type=\"text\" maxlength=\"18\" size=\"18\" name=\"cpfCnpjCliente\" id=\"cpfCnpjCliente\"></td>
+  <td><input type=\"text\" maxlength=\"18\" size=\"23\" name=\"cpfCnpjCliente\" id=\"cpfCnpjCliente\"></td>
   <td class=\"descCampo\" ><label for=\"nome\">Nome:</label></td>
-  <td><input type=\"text\" maxlength=\"40\" size=\"30\" name=\"nome\" id=\"nome\"></td>
-  <td rowspan=2 align=\"center\"><input type=\"submit\" value=\"Incluir\" name=\"incluir\" >
+  <td><input type=\"text\" maxlength=\"40\" size=\"43\" name=\"nome\" id=\"nome\"></td>
 </tr>
 <tr>
-    <td class=\"descCampo\" ><label for=\"obs\">Obs:</label></td>
-    <td colspan=4><input type=\"text\" maxlength=\"300\" size=\"59\" name=\"obs\" id=\"obs\"></td>
+  <td class=\"descCampo\" ><label for=\"obs\">Obs:</label></td>
+  <td colspan=4><input type=\"text\" maxlength=\"300\" size=\"78\" name=\"obs\" id=\"obs\"></td>
+</tr>
+<tr>
+   <td colspan=4 align=\"right\"><input type=\"submit\" value=\"Incluir\" name=\"incluir\" >
 </tr>
 </table>
 <br>
-<p align=\"center\">............................................................................................................................................</p>
+
+<p align=\"center\">..........................................................................................................................................................</p>
+
 <div>
-<table border=\"1\" width=\"600\" align=\"center\">
+<table border=\"0\" width=\"600\" align=\"center\" class=\"tabItemProtocolo\">
 <thead>
 <tr>
-    <th>Nome</th>
-    <th>Cpf/Cnpj</th>
-    <th>Tipo</th>
-    <th>Obs</th>
+    <th class=\"descCampo\" >Nome</th>
+    <th class=\"descCampo\" >Cpf/Cnpj</th>
+    <th class=\"descCampo\" width=\"10\">Tipo</th>
+    <th class=\"descCampo\" >Obs</th>
 </tr>
 </thead>
 ";
-
-    $sql = "select * from itemprotocolo A
+        $sql = "select * from itemprotocolo A
             join
             protocolo B
             on A.codProtocolo = B.codProtocolo
             where A.codProtocolo ='".$_SESSION['codProtocolo']."'";
-    $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
+        $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
 
-while ($linha = mysql_fetch_array($resultado)){
-echo "
-    <tbody>
-    <tr>
-        <td>".$linha['nomeCliente']."</td>
-        <td>".$linha['cpfCnpjCliente']."</td>
-        <td>".$linha['tipo']."</td>
-        <td>".$linha['obs']."</td>
-    </tr>";
+        while ($linha = mysql_fetch_array($resultado)){
+        echo "
+        <tbody>
+        <tr>
+            <td class=\"resultCampo\">".$linha['nomeCliente']."</td>
+            <td class=\"resultCampo\">".$linha['cpfCnpjCliente']."</td>
+            <td class=\"resultCampo\" align=\"center\">".$linha['tipo']."</td>
+            <td class=\"resultCampo\">".$linha['obs']."</td>
+        </tr>";
         }
-        echo "</tbody>
-    </table>
-    </div>
-    </form>";
+
+echo "
+</tbody>
+</table>
+</div>
+<br>
+<table border=\"0\"align=\"center\">
+<thead>
+    <tr>
+        <td align=\"right\"><input type=\"submit\" alt=\"teste\" value=\"voltar\" name=\"voltar\" >
+        <td align=\"right\"><input type=\"submit\" value=\"gravar\" name=\"gravar\" >
+        <td align=\"right\"><input type=\"submit\" value=\"enviar\" name=\"enviar\" >
+    </tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+
+</form>";
 }
 //fim formulario
 
-//insere campos por sql no banco de dados
+//inicio formulario
 function gravarCabecalho(){
 
 
 if (isset($_SESSION['codProtocolo'])){
-    gravarItemProtocolo();
+    
     }else{
         $sql2 = "select * from protocolo order by codProtocolo desc limit 1 ";//busca o ultimo cod que está no banco
         $resultado2 = mysql_query($sql2) or die ("erro sqlGravarCabecalho".mysql_error());
@@ -119,6 +148,7 @@ if (isset($_SESSION['codProtocolo'])){
 };
 //fim gravar
 
+//inicio formulario
 function gravarItemProtocolo(){
     $nome = $_POST['nome'];
     $cpfCnpjCliente = $_POST['cpfCnpjCliente'];
@@ -126,8 +156,12 @@ function gravarItemProtocolo(){
 echo $_SESSION['codProtocolo'];
     $sql = "INSERT INTO itemprotocolo (cpfCnpjCliente,nomeCliente,tipo,codProtocolo,obs,dataPagamento,documento)
             VALUES ('$cpfCnpjCliente','$nome','N','".$_SESSION['codProtocolo']."','$obs','0000-00-00','nada')";
+
     $resultadosql = mysql_query($sql) or die ("erro sql gravarItemProtocolo".mysql_error());
+
+    formulario();
 }
+//fim formulario
 
 
 
@@ -135,15 +169,12 @@ echo $_SESSION['codProtocolo'];
 
 
 if (!array_key_exists("incluir",$_POST)){
-echo "entro no primeiro;";
-formulario();
-   }
-   else{
-gravarCabecalho();
-   formulario();
-   echo "entro no segundo;";
-
+    formulario();
+    gravarCabecalho();
     }
+    else{
+        gravarItemProtocolo();
+        }
 
 
 ?>
