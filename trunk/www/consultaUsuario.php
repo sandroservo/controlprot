@@ -86,7 +86,7 @@ function consultar($dado,$campo){
             </table>
 ";
 
-$total = mysql_num_rows($resultado);
+
 echo "<br><br><table border=\"0\" align=\"center\">
         <thead>
         <tr>
@@ -97,6 +97,7 @@ echo "<br><br><table border=\"0\" align=\"center\">
         </table>";
 
      }
+     $total = mysql_num_rows($resultado);
 }
 
 

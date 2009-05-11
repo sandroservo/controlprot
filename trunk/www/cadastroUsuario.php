@@ -106,7 +106,7 @@ echo "<body onLoad=\"aa()\"><form method=\"POST\" name=\"cadastro\" onSubmit=\"r
   <td><select name=\"empresa\" style=\"width: 320px;\">";
 
     //codigo para listar os nomes das empresas cadastradas na tabela empresa
-    $sql = "select * from empresa ";
+    $sql = "select codEmpresa,nome from empresa ";
     $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
 
 
@@ -129,7 +129,8 @@ echo "</select>
 //inicio gravar - insere campos por sql no banco de dados
 function gravar(){
 
-    $senha = md5(geraSenha(10).dificilsenha2009);
+    $numeroAleatorio = rand();
+    $senha = md5($numeroAleatorio.dificilsenha2009);
 
 $nome = $_POST['nome'];
 $email = $_POST['email'];
@@ -171,7 +172,9 @@ if ($produto2 <>"" && $produto3 <> "" && $produto1 <>""){
 $sql = "INSERT INTO usuarios (codUsuario,nome,email,produto,senha,dataCriacao,nivel,status,codEmpresa) VALUES (' ','$nome','$email','$todas','$senha',now(),'$nivel','$status','$codEmpresa')";
 $resultadosql = mysql_query($sql) or die ("erro sql".mysql_error());
 
-echo "<font aling=center><div class=msg>Registro gravado com sucesso</div></font>";
+echo "<font aling=center><div class=msg>Usuário gravado com sucesso<br>
+Senha para Acesso: $numeroAleatorio
+</div></font>";
 
 };
 //fim gravar

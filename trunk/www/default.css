@@ -1,0 +1,169 @@
+/*
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+body {
+	margin: 0;
+	padding: 0;
+	background: url(images/img01.gif) repeat-x left top;
+    background-color:white;
+    font-size: 13px;
+	font-family: "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
+	text-align: justify;
+}
+
+p, ul, ol {
+	margin: 0 0 2em 0;
+	text-align: justify;
+	line-height: 26px;
+}
+
+a:link {
+	color:black;
+}
+
+a:hover {
+	text-decoration: none;
+	color: red;
+}
+a:active {
+ 	text-decoration: underline;
+	color: red;
+
+}
+a:visited {
+	color: #8BD80E;
+}
+
+img {
+	border: none;
+}
+        /* Header */
+
+#header {
+	width: 713px;
+	margin: 0 auto;
+	height: 42px;
+}
+
+/* Menu */
+
+#menu {
+    float: left;
+	width: 713px;
+	height: 50px;
+	background: url(images/img02.gif) no-repeat left top;
+}
+
+#menu ul {
+	padding-bottom:0px;
+    padding-left:70px;
+    padding-right:50px;
+    list-style: none;
+	line-height: normal;
+}
+
+#menu li {
+    display: block;
+	float: left;
+}
+
+#menu a {
+	display: block;
+	float: left;
+	background: url(images/img04.gif) no-repeat right 80%;
+	margin-top: 5px;
+	margin-right: 5px;
+	padding-top:8px;
+    padding-right:5px;
+	text-decoration: none;
+	font-size: 14px;
+	color: #000000;
+}
+
+#menu a:hover { 
+	color: red;
+    text-decoration:underline
+}
+
+#menu .current_page_item a {
+	color: #000000;
+}
+
+/** LOGO */
+
+#logo {
+	width: 713px;
+	height: 50px;
+	margin: 0 auto;
+}
+
+/* Page */
+
+#page {
+	width: 663px;
+	margin: 0 auto;
+    background: #4C4C4C url(images/img03.gif) no-repeat left bottom;
+	padding: 0px 25px;
+    padding-top:20px;
+    padding-bottom:50px;
+}
+
+/* Footer */
+
+#footer {
+    margin: 0 auto;
+}
+
+#legal {
+	clear: both;
+	padding-top: 5px;
+	text-align: center;
+	color: black;
+}
+
+/*formulario*/
+input{
+border-style:solid;
+border-color:black;
+border-width:1px;
+font-size:12px;
+}
+
+th {
+    color:black;
+    background-color:#E8E8E8;
+
+}
+ .descCampo, p{
+    color:white;
+    font-weight:bold;
+}
+
+.resultCampo{
+    padding-bottom:5;
+    color:white;
+}
+
+.tabItemProtocolo{
+    border:1px;
+    border-style:solid;
+    border-color:black;
+}
+.msg{
+    padding:10px 10px;
+    margin:0 auto;
+    width:500px;
+    text-align:center;
+    border-width:1px;
+    border-style:solid;
+    border-color:black;
+    background-color:#E8E8E8;
+	font-family: "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
+    font-size:13px;
+    
+}
+
+
