@@ -36,7 +36,7 @@ echo "
 </tr>
 </thead>
 ";
-        $sql = "select * from itemprotocolo A
+        $sql = "select * from itemProtocolo A
             join
             protocolo B
             on A.codProtocolo = B.codProtocolo
@@ -106,7 +106,7 @@ function gravarItemProtocolo(){
     $_SESSION['cpfCnpjCliente'] = $_POST['cpfCnpjCliente'];
     $_SESSION['obs'] = $_POST['obs'];
 
-    $sql_ver = "select * from itemprotocolo A
+    $sql_ver = "select * from itemProtocolo A
             join
             protocolo B
             on A.codProtocolo = B.codProtocolo
@@ -136,7 +136,7 @@ function gravarItemProtocolo(){
          </table>
          </form></div>";
                  }else{
-                 $sql = "INSERT INTO itemprotocolo (cpfCnpjCliente,nomeCliente,tipo,codProtocolo,obs,dataPagamento,documento)
+                 $sql = "INSERT INTO itemProtocolo (cpfCnpjCliente,nomeCliente,tipo,codProtocolo,obs,dataPagamento,documento)
                  VALUES ('".$_SESSION['cpfCnpjCliente']."','".$_SESSION['nome']."','N','".$_SESSION['codProtocolo']."','".$_SESSION['obs']."','0000-00-00','nada')";
                  $resultadosql = mysql_query($sql) or die ("erro sql gravarItemProtocolo".mysql_error());
                     }
@@ -164,12 +164,12 @@ $_SESSION['codProtocolo']="";
 
 }
 function gravarItemProtocoloPendencia(){
-    $sql =  $sql = "INSERT INTO itemprotocolo (cpfCnpjCliente,nomeCliente,tipo,codProtocolo,obs,dataPagamento,documento)
+    $sql =  $sql = "INSERT INTO itemProtocolo (cpfCnpjCliente,nomeCliente,tipo,codProtocolo,obs,dataPagamento,documento)
                  VALUES ('".$_SESSION['cpfCnpjCliente']."','".$_SESSION['nome']."','P','".$_SESSION['codProtocolo']."','".$_SESSION['obs']."','0000-00-00','nada')";
     $resultadosql = mysql_query($sql) or die ("erro sql gravarItemProtocoloPendencia ".mysql_error());
 }
 function gravarItemProtocoloNovo(){
-    $sql =  $sql = "INSERT INTO itemprotocolo (cpfCnpjCliente,nomeCliente,tipo,codProtocolo,obs,dataPagamento,documento)
+    $sql =  $sql = "INSERT INTO itemProtocolo (cpfCnpjCliente,nomeCliente,tipo,codProtocolo,obs,dataPagamento,documento)
                  VALUES ('".$_SESSION['cpfCnpjCliente']."','".$_SESSION['nome']."','N','".$_SESSION['codProtocolo']."','".$_SESSION['obs']."','0000-00-00','nada')";
     $resultadosql = mysql_query($sql) or die ("erro sql gravarItemProtocoloNovo ".mysql_error());
 }
