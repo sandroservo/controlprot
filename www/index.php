@@ -39,6 +39,28 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 <title>Popular by Free Css Templates</title>
 <link href="default.css" rel="stylesheet" type="text/css" />
 </head>
+<script>
+
+    startList = function() {
+if (document.all&&document.getElementById) {
+navRoot = document.getElementById("nav");
+for (i=0; i<navRoot.childNodes.length; i++) {
+node = navRoot.childNodes[i];
+if (node.nodeName=="LI") {
+node.onmouseover=function() {
+this.className+=" over";
+  }
+  node.onmouseout=function() {
+  this.className=this.className.replace
+	(" over", "");
+   }
+   }
+  }
+ }
+}
+window.onload=startList;
+</script>
+
 <body>
 <!-- inicio menu -->
 <div id="logo">
@@ -48,11 +70,12 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 <div id="header">
 	<div id="menu">
 		<ul>
-            <li><a href="index.php">Home</a></li>
-			<li><a href="index.php?pagina=Novo">Novo Protocolo</a></li>
+            <li><a href="index.php">Home</a><li>
+            <li><a href="index.php?pagina=Novo">Novo Protocolo</a></li>
 			<li><a href="index.php?pagina=Consulta">Consultar Protocolo</a></li>
 			<li><a href="index.php?pagina=Relatorio">Relatório de Protocolos</a></li>
-          	<li><a href="index.php?pagina=Administrador">Administrador</a></li>
+          	<li><a href="index.php?pagina=Administrador">Administrador</a>
+                
             <li class="last"><a href="#">Sair</a></li>
 		</ul>
 	</div>
@@ -75,7 +98,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
             require("consultaProtocolo.php");
             }
             if($pagina=="Relatorio"){
-                require("relatorioProtocolo.php");
+                require("pdfProtocoloEnviado.php");
                 }
                 if($pagina=="Administrador"){
                     require("indexAdministrador.php");
