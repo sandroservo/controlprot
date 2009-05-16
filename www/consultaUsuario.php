@@ -1,20 +1,3 @@
-<style>
-
-
-input {
-background-color:#F0F0F0;
-font-family:verdana;
-font-size:12px;
-}
-label,select{
-font-family:verdana;
-font-size:12px;
-
-}
-
-
-
-</style>
 
 <?php
 require 'conectar.php';

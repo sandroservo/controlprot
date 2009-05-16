@@ -5,7 +5,7 @@ require "conectar.php";
 function formulario(){
 
 echo "
-<form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" action=\"index.php?pagina=Novo\">
+<form method=\"POST\" name=\"cabecalhoFormulario\" action=\"index.php?pagina=Novo\">
 <table border=\"0\" align=center>
 <tr>
   <td class=\"descCampo\" ><label for=\"cpfCnpjCliente\">Cpf/Cnpj:</label></td>
@@ -21,18 +21,26 @@ echo "
    <td colspan=4 align=\"right\"><input type=\"submit\" value=\"Incluir\" name=\"incluir\" >
 </tr>
 </table>
-<br>
+</form>
+<br>";
+itemFormulario();
 
-<p align=\"center\">...................................................................................................................................</p>
+}
+//fim formulario
+function itemFormulario(){
+
+    echo "<p align=\"center\">...................................................................................................................................</p>
 
 <div>
+<form method=\"POST\" name=\"itemFormulario\" action=\"index.php?pagina=Novo\">
 <table border=\"0\" width=\"650\" align=\"center\" class=\"tabItemProtocolo\">
 <thead>
 <tr>
-    <th>Nome</th>
-    <th>Cpf/Cnpj</th>
+    <th width=\"100\">Nome</th>
+    <th width=\"100\">Cpf/Cnpj</th>
     <th width=\"10\">Tipo</th>
     <th >Obs</th>
+    <th width=\"5\">D</th>
 </tr>
 </thead>
 ";
@@ -52,12 +60,13 @@ echo "
             <td class=\"resultCampo\">".$linha['cpfCnpjCliente']."</td>
             <td class=\"resultCampo\" align=\"center\">".$linha['tipo']."</td>
             <td class=\"resultCampo\">".$linha['obs']."</td>
+            <td><a href=\"index.php?pagina=Novo&item=".$linha['cpfCnpjCliente']."\" >X</a></td>
         </tr>";
         }
 
 echo "
     <tr>
-        <th colspan=4>Total Contratos: ".$total."</th>
+        <th colspan=5>Total Contratos: ".$total."</th>
     </tr>
 
 </tbody>
@@ -76,8 +85,6 @@ echo "
 </table>
 </form>";
 }
-//fim formulario
-
 //inicio formulario
 function gravarCabecalho(){
 
@@ -85,7 +92,7 @@ function gravarCabecalho(){
 if (isset($_SESSION['codProtocolo']) && !$_SESSION['codProtocolo']==""){
 
     }else{
-        $sql2 = "select * from protocolo order by codProtocolo desc limit 1 ";//busca o ultimo cod que estÃ¡ no banco
+        $sql2 = "select * from protocolo order by codProtocolo desc limit 1 ";//busca o ultimo cod que está no banco
         $resultado2 = mysql_query($sql2) or die ("erro sqlGravarCabecalho".mysql_error());
         $dado2 = mysql_fetch_assoc($resultado2);
         $codProtocolo = $dado2['codProtocolo']+1;//acrescenta + 1 no codigo que buscou do banco
@@ -106,6 +113,13 @@ function gravarItemProtocolo(){
     $_SESSION['cpfCnpjCliente'] = $_POST['cpfCnpjCliente'];
     $_SESSION['obs'] = $_POST['obs'];
 
+if (($_SESSION['nome'])=="" || $_SESSION['nome']==" "){
+ echo "<div class=\"msgY\">Digite um Nome</div>";
+ }
+  if($_SESSION['cpfCnpjCliente']=="" || $_SESSION['cpfCnpjCliente']==" "){
+   echo "<div class=\"msgY\">Digite um CPF ou CNPJ</div>";
+   }if(!($_SESSION['cpfCnpjCliente']=="" || $_SESSION['cpfCnpjCliente']==" " || $_SESSION['nome']=="" || $_SESSION['nome']==" ")){
+
     $sql_ver = "select * from itemProtocolo A
             join
             protocolo B
@@ -116,19 +130,19 @@ function gravarItemProtocolo(){
     $linha_ver = mysql_num_rows($resultado_ver);
 
     if ($linha_ver>0){
-        echo "<div class=msg><b>CPF/Cnpj jÃ¡ possui protocolo</b><br>";
+        echo "<div class=msgY><b>CPF/Cnpj já possui protocolo</b><br>";
             while ($linha = mysql_fetch_array($resultado_ver)){
-                echo"Protocolo: ".$linha['codProtocolo']." - Enviado: ".$linha['dataEnvio']."<br>";
+                echo"Protocolo Nº: ".$linha['codProtocolo']." | Enviado: ".$linha['dataEnvio']."<br>";
                 }
 
-        echo "<br>Deseja enviar como Novo ou PendÃªncia?";
+        echo "<br>Deseja enviar como Novo ou Pendência?";
         echo "
         <form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" action=\"index.php?pagina=Novo\">
         <table border=\"0\" align=\"center\">
          <thead>
          <tr>
             <td align=\"right\"><input type=\"submit\" value=\"Novo\" name=\"novo\" >
-            <td align=\"right\"><input type=\"submit\" value=\"PendÃªncia\" name=\"pendencia\" >
+            <td align=\"right\"><input type=\"submit\" value=\"Pendência\" name=\"pendencia\" >
          </tr>
          </thead>
          <tbody>
@@ -139,30 +153,11 @@ function gravarItemProtocolo(){
                  $sql = "INSERT INTO itemProtocolo (cpfCnpjCliente,nomeCliente,tipo,codProtocolo,obs,dataPagamento,documento)
                  VALUES ('".$_SESSION['cpfCnpjCliente']."','".$_SESSION['nome']."','N','".$_SESSION['codProtocolo']."','".$_SESSION['obs']."','0000-00-00','nada')";
                  $resultadosql = mysql_query($sql) or die ("erro sql gravarItemProtocolo".mysql_error());
-                    }
-}
+                 }
+        }
+    }
 //fim formulario
 
-function salvarProtocolo(){
-
-$sql = "UPDATE protocolo SET status='S',quantidadeContratos='".$_SESSION['total']."'
-           WHERE codProtocolo = '".$_SESSION['codProtocolo']."' ;";
-$resultadosql = mysql_query($sql) or die ("erro sql salvarFormulario".mysql_error());
-echo "<div class=\"msg\">Protocolo Salvo com sucesso</div>";
-}
-
-function enviarProtocolo(){
-    $sql = "UPDATE protocolo SET status='E',quantidadeContratos='".$_SESSION['total']."', dataEnvio=now(),codUsuario='1',codEmpresa='1'
-    WHERE codProtocolo = '".$_SESSION['codProtocolo']."' ;";
-    $resultadosql = mysql_query($sql) or die ("erro sql salvarFormulario".mysql_error());
-    echo "<div class=\"msg\">Protocolo Enviado<br>
-    <b>Protocolo: ".$_SESSION['codProtocolo']."</b>
-    </div>";
-
-
-$_SESSION['codProtocolo']="";
-
-}
 function gravarItemProtocoloPendencia(){
     $sql =  $sql = "INSERT INTO itemProtocolo (cpfCnpjCliente,nomeCliente,tipo,codProtocolo,obs,dataPagamento,documento)
                  VALUES ('".$_SESSION['cpfCnpjCliente']."','".$_SESSION['nome']."','P','".$_SESSION['codProtocolo']."','".$_SESSION['obs']."','0000-00-00','nada')";
@@ -174,6 +169,45 @@ function gravarItemProtocoloNovo(){
     $resultadosql = mysql_query($sql) or die ("erro sql gravarItemProtocoloNovo ".mysql_error());
 }
 
+function salvarProtocolo(){
+    $sql = "Select codProtocolo from itemprotocolo where codProtocolo='".$_SESSION['codProtocolo']."';";
+    $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
+    $total = mysql_num_rows($resultado);
+
+    if ($total<=0){
+        echo "<div class=\"msgR\">Não existe itens para serem salvos</div>";
+
+        }else{
+            $sql = "UPDATE protocolo SET status='S',quantidadeContratos='".$_SESSION['total']."'
+            WHERE codProtocolo = '".$_SESSION['codProtocolo']."' ;";
+            $resultadosql = mysql_query($sql) or die ("erro sql salvarFormulario".mysql_error());
+            echo "<div class=\"msgG\">Protocolo Salvo com sucesso <br> Protocolo Nº:".$_SESSION['codProtocolo']." </div>";
+         }
+
+}
+
+function enviarProtocolo(){
+
+    $sql = "Select codProtocolo from itemprotocolo where codProtocolo='".$_SESSION['codProtocolo']."';";
+    $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
+        $total = mysql_num_rows($resultado);
+    if ($total<=0){
+        echo "<div class=\"msgR\">Não existe itens para serem enviados</div>";
+        formulario();
+         }else{
+            $sql = "UPDATE protocolo SET status='E',quantidadeContratos='".$_SESSION['total']."', dataEnvio=now(),codUsuario='1',codEmpresa='1'
+            WHERE codProtocolo = '".$_SESSION['codProtocolo']."' ;";
+            $resultadosql = mysql_query($sql) or die ("erro sql salvarFormulario".mysql_error());
+            echo "<div class=\"msgG\">Protocolo Enviado<br>
+            <b>Protocolo: ".$_SESSION['codProtocolo']."</b>
+            </div>";
+    
+            $_SESSION['codProtocolo']="";//zera sessa codprotocolo para não abrir o mesmo protocolo depois de enviado
+            }
+
+}
+
+
 function deletarProtocolo(){
     $sql = "DELETE FROM itemProtocolo WHERE codProtocolo='".$_SESSION['codProtocolo']."';";
     $resultadosql = mysql_query($sql) or die ("erro sql deletarItemProtocolo".mysql_error());
@@ -181,10 +215,16 @@ function deletarProtocolo(){
     $sql = "DELETE FROM protocolo WHERE codProtocolo='".$_SESSION['codProtocolo']."';";
     $resultadosql = mysql_query($sql) or die ("erro sql deletarItemProtocolo".mysql_error());
 
-echo "<div class=\"msg\">Protocolo Deletado</div>";
+    echo "<div class=\"msgR\">Protocolo Deletado</div>";
 
-$_SESSION['codProtocolo']="";
+    $_SESSION['codProtocolo']="";
 }
+
+function excluirItemProtocolo(){
+    $sql = "DELETE FROM itemProtocolo WHERE cpfCnpjCliente='".$_SESSION['item']."' and codProtocolo='".$_SESSION['codProtocolo']."';";
+    $resultadosql = mysql_query($sql) or die ("erro sql deletarItemProtocolo".mysql_error());
+}
+$_SESSION['item'] = $_GET['item'];
 
 if(array_key_exists("enviar", $_POST)){
     enviarProtocolo();
@@ -209,11 +249,17 @@ if(array_key_exists("enviar", $_POST)){
                 if(array_key_exists("deletar", $_POST)){
                     deletarProtocolo();
                     }
-                    if ( !array_key_exists("enviar", $_POST) && !array_key_exists("gravar", $_POST)
-                        && !array_key_exists("incluir",$_POST) && !array_key_exists("pendencia", $_POST)
-                        && !array_key_exists("novo", $_POST) && !array_key_exists("deletar", $_POST)){
-                           formulario();
-                           gravarCabecalho();
+                    if(array_key_exists("item", $_GET)){
+                        excluirItemProtocolo();
+                        formulario();
+                        }
+                        if ( !array_key_exists("enviar", $_POST) && !array_key_exists("gravar", $_POST)
+                            && !array_key_exists("incluir",$_POST) && !array_key_exists("pendencia", $_POST)
+                            && !array_key_exists("novo", $_POST) && !array_key_exists("deletar", $_POST) 
+                            && !array_key_exists("item", $_GET)){
+                            
+                            formulario();
+                            gravarCabecalho();
 
                            }
 
