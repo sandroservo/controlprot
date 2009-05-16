@@ -20,21 +20,14 @@ p, ul, ol {
 	line-height: 26px;
 }
 
-a:link {
-	color:black;
+a:link, a:visited, a:active {
+	color:white;
+    text-decoration:none;
 }
 
 a:hover {
-	text-decoration: none;
+	text-decoration: underline;
 	color: red;
-}
-a:active {
- 	text-decoration: underline;
-	color: red;
-
-}
-a:visited {
-	color: #8BD80E;
 }
 
 img {
@@ -141,6 +134,11 @@ th {
     color:white;
     font-weight:bold;
 }
+ .descCampoConsulta{
+    color:white;
+    font-weight:bold;
+    padding-right:15px;
+}
 
 .resultCampo{
     padding-bottom:5;
@@ -163,7 +161,46 @@ th {
     background-color:#E8E8E8;
 	font-family: "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
     font-size:13px;
-    
+    color:red;
+}
+.msgR{
+    padding:10px 10px;
+    margin:0 auto;
+    width:500px;
+    text-align:center;
+    border-width:1px;
+    border-style:solid;
+    border-color:black;
+    background-color:#E8E8E8;
+	font-family: "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
+    font-size:13px;
+    color:red;
+}
+.msgY{
+    padding:10px 10px;
+    margin:0 auto;
+    width:500px;
+    text-align:center;
+    border-width:1px;
+    border-style:solid;
+    border-color:black;
+    background-color:#E8E8E8;
+	font-family: "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
+    font-size:13px;
+    color:orange;
+}
+.msgG{
+    padding:10px 10px;
+    margin:0 auto;
+    width:500px;
+    text-align:center;
+    border-width:1px;
+    border-style:solid;
+    border-color:black;
+    background-color:#E8E8E8;
+	font-family: "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
+    font-size:13px;
+    color:green;
 }
 
 
