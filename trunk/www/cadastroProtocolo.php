@@ -1,5 +1,4 @@
 <?php
-require "conectar.php";
 
 //inicio formulario
 function formulario(){
