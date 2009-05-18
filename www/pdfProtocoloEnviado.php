@@ -61,7 +61,7 @@ $pdf->SetX("10");
 $pdf->MultiCell(0,5,$novo,0,1,'J');
 
 //endereco da imagem,posicao X(horizontal),posicao Y(vertical), tamanho altura, tamanho largura
-$pdf->Image("tela.JPG", 8,20,20,20);
+//$pdf->Image("tela.JPG", 8,20,20,20);
 
 /*******definindo o rodapé*************************/
 //posiciona verticalmente 270mm

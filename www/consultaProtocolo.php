@@ -1,7 +1,4 @@
 <?php
-require 'conectar.php';
-
-
 function formulario(){
     echo "<form name=\"consulta\" action=\"index.php?pagina=Consulta\" method=\"POST\">
     <table border=\"0\" align=\"center\">
@@ -33,7 +30,7 @@ function formulario(){
 function consultar($dado,$campo){
 
     if ($dado=='nome'){
-        $sql = "select cpfCnpjCliente,nomeCliente,codProtocolo,staus,quantidadeContrato from itemProtocolo A
+        $sql = "select * from itemProtocolo A
                 join
                 protocolo B
                 on A.codProtocolo = B.codProtocolo
@@ -57,27 +54,32 @@ function consultar($dado,$campo){
                 where A.$dado = '$campo'";
             $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
             }
-
+   echo "$dado";
 echo "<div><table width=\"650\" border=\"1\" cellspacing=\"0\" bordercolor=\"black\" align=\"center\" class=\"tabItemProtocolo\">
 <thead>
 <tr >
-<th >Numero Protocolo:</td>
-<th >CPF/CNPJ:</td>
-<th >Data Envio:</td>
+<th >Numero Protocolo:</td>";
+if($dado=='nomeCliente' || $dado=='cpfCnpjCliente'){echo "<th >CPF/CNPJ:</td>";}
+echo "<th >Data Envio:</td>
 <th >Status</td>
 <th >Qtd Contratos</td>
 <th colspan=\"2\">Opções</td>
 </tr>";
 
 //inicio do while para mostrar resultado da consulta
+ 
     while ($linha = mysql_fetch_array($resultado)){
         echo "<tr>
-        <td class=\"resultCampo\">".$linha['codProtocolo']."</td>
-        <td class=\"resultCampo\">".$linha['cpfCnpjCliente']."</td>
-        ";
-        if(array_key_exists('dataEnvio', $linha)){
-            echo "<td class=\"resultCampo\">";$linha['dataEnvio'];
-        }else{echo"<td class=\"resultCampo\">Não Enviado</td>";}
+        <td class=\"resultCampo\">".$linha['codProtocolo']."</td>";
+        if($dado=='nomeCliente' || $dado=='cpfCnpjCliente'){
+            echo "<td class=\"resultCampo\">".$linha['cpfCnpjCliente']."</td>";}
+       
+        if(!$linha['dataEnvio']==""){
+            echo "<td class=\"resultCampo\">".$linha['dataEnvio'];
+                }else{
+                    echo"<td class=\"resultCampo\">Não Enviado</td>";
+                    }
+
         echo "</td>
         <td class=\"resultCampo\">".$linha['status']."</td>
         <td class=\"resultCampo\">".$linha['quantidadeContratos']."</td>

@@ -51,7 +51,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
             <li><a href="index.php">Home</a><li>
             <li><a href="index.php?pagina=Novo">Novo Protocolo</a></li>
 			<li><a href="index.php?pagina=Consulta">Consultar Protocolo</a></li>
-			<li><a href="index.php?pagina=Relatorio">Relatório de Protocolos</a></li>
+			<li><a href="pdfProtocoloEnviado.php">Relatório de Protocolos</a></li>
           	<li><a href="index.php?pagina=Administrador">Administrador</a>
                 
             <li class="last"><a href="#">Sair</a></li>
@@ -64,26 +64,52 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 <div id="page">
   <p>
     <?php
+    require "conectar.php";
+    //verificar se existe protocolos com status 'A' e deleta
+    function deletarProtocolosAbertos(){
+    echo "entro del pro";
+    $sql5 = "select codProtocolo,status from protocolo where status = 'A'";
+    $resultado5 = mysql_query($sql5) or die ("erro".mysql_error());
 
-    
-    
+        while ($linha = mysql_fetch_array($resultado5)){
+            $sql = "DELETE FROM itemProtocolo WHERE codProtocolo='".$linha['codProtocolo']."';";
+            $resultadosql = mysql_query($sql) or die ("erro sql deletarItemProtocolo".mysql_error());
+        }
+
+    $sql = "DELETE FROM protocolo WHERE status = 'A'";
+    $resultadosql = mysql_query($sql) or die ("erro sql deletarItemProtocolo".mysql_error());
+
+        unset ($_SESSION['codProtocolo']);
+    }
+
+
     $pagina=$_GET['pagina'];
     
     if ($pagina=="Novo"){
         require ("cadastroProtocolo.php");
         }
         if($pagina=="Consulta"){
+            deletarProtocolosAbertos();
             require("consultaProtocolo.php");
             }
             if($pagina=="Relatorio"){
+                deletarProtocolosAbertos();
                 require("pdfProtocoloEnviado.php");
                 }
                 if($pagina=="Administrador"){
+                    deletarProtocolosAbertos();
                     require("indexAdministrador.php");
                     }
-                    else{
-                    require ("home.php");
+                    if (!($pagina=="Novo" || $pagina=="Consulta"
+                       || $pagina=="Relatorio" || $pagina=="Administrador")){
+
+                        require ("home.php");
+                         deletarProtocolosAbertos();
                     }
+
+
+
+
 
 
 
