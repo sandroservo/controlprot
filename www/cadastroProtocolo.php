@@ -88,7 +88,7 @@ echo "
 function gravarCabecalho(){
 
 
-if (isset($_SESSION['codProtocolo']) && !$_SESSION['codProtocolo']==""){
+    if (isset($_SESSION['codProtocolo']) && !$_SESSION['codProtocolo']=="" || array_key_exists('cod', $_GET)){
 
     }else{
         $sql2 = "select * from protocolo order by codProtocolo desc limit 1 ";//busca o ultimo cod que está no banco
@@ -224,6 +224,7 @@ function excluirItemProtocolo(){
     $resultadosql = mysql_query($sql) or die ("erro sql deletarItemProtocolo".mysql_error());
 }
 $_SESSION['item'] = $_GET['item'];
+$_SESSION['cod'] = $_GET['cod'];
 
 if(array_key_exists("enviar", $_POST)){
     enviarProtocolo();

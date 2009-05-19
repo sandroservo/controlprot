@@ -6,8 +6,9 @@ function formulario(){
     <tr>
         <td height=\"30\" class=\"descCampoConsulta\"><input type=\"radio\" name=\"dado\" value=\"codProtocolo\" CHECKED/>Numero Protocolo</td>
         <td height=\"30\" class=\"descCampoConsulta\"><input type=\"radio\" name=\"dado\" value=\"nomeCliente\">Nome</td>
-        <td height=\"30\" class=\"descCampoConsulta\"><input type=\"radio\" name=\"dado\" value=\"dataEnvio\">Data Envio</td>
+        <!--<td height=\"30\" class=\"descCampoConsulta\"><input type=\"radio\" name=\"dado\" value=\"dataEnvio\">Data Envio</td>-->
         <td height=\"30\" class=\"descCampoConsulta\"><input type=\"radio\" name=\"dado\" value=\"cpfCnpjCliente\">CPF/CNPJ</td>
+        <td height=\"30\" class=\"descCampoConsulta\"><input type=\"radio\" name=\"dado\" value=\"todos\">Todos</td>
 
 </tr>
     </thead>
@@ -29,6 +30,14 @@ function formulario(){
 
 function consultar($dado,$campo){
 
+    if ($dado=='todos'){
+        $sql = "select * from itemProtocolo A
+                join
+                protocolo B
+                on A.codProtocolo = B.codProtocolo
+                group by A.codProtocolo;";
+        $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
+        }
     if ($dado=='nome'){
         $sql = "select * from itemProtocolo A
                 join
@@ -46,7 +55,7 @@ function consultar($dado,$campo){
                 group by A.codProtocolo;";
         $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
         }
-        else{
+        if (!($dado=='todos' || $dado=='nome' || $dado=='codProtocolo')){
             $sql = "select * from itemProtocolo A
                 join
                 protocolo B
@@ -54,7 +63,7 @@ function consultar($dado,$campo){
                 where A.$dado = '$campo'";
             $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
             }
-   echo "$dado";
+
 echo "<div><table width=\"650\" border=\"1\" cellspacing=\"0\" bordercolor=\"black\" align=\"center\" class=\"tabItemProtocolo\">
 <thead>
 <tr >
@@ -83,8 +92,8 @@ echo "<th >Data Envio:</td>
         echo "</td>
         <td class=\"resultCampo\">".$linha['status']."</td>
         <td class=\"resultCampo\">".$linha['quantidadeContratos']."</td>
-        <td class=\"resultCampo\"><input type=\"submit\" value=\"Alterar\" name=\"alterar\" /></td>
-        <td><label><a href=\"index.php?pagina=Consulta&tipo=excluir&cod=".$linha['codProtocolo']."\">Excluir</label></td>
+        <td><a href=\"index.php?pagina=Consulta&tipo=alterar&cod=".$linha['codProtocolo']."\">Alterar</td>
+        <td><a href=\"index.php?pagina=Consulta&tipo=excluir&cod=".$linha['codProtocolo']."\">Excluir</td>
         </tr>";
         }
 
@@ -126,9 +135,13 @@ if (array_key_exists("consultar",$_POST)){
         deletarProtocolo($codProtocolo);
         formulario();
         }
-        if(!$tipo =='excluir' && !array_key_exists("consultar",$_POST)){
-            formulario();
-        }
+        if ($tipo=="alterar"){
+            ;
+            require("cadastroProtocolo.php?cod=$codProtocolo");
+            }
+            if(!$tipo =='excluir' && !array_key_exists("consultar",$_POST)){
+                formulario();
+                }
 
 ?>
 

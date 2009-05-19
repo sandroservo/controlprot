@@ -67,22 +67,30 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
     require "conectar.php";
     //verificar se existe protocolos com status 'A' e deleta
     function deletarProtocolosAbertos(){
-    echo "entro del pro";
     $sql5 = "select codProtocolo,status from protocolo where status = 'A'";
     $resultado5 = mysql_query($sql5) or die ("erro".mysql_error());
 
+        /*faz um while, enquanto existir itens dentro do resultado5 ele 
+        vai executar o sql de deleção, para não sobrecarregado o banco com
+         protocolos com status somente A de aberto - Fato existir uma FK primeiramente
+         * ele ira deletar os itens após isso e rá deletar todos os protocolos
+         * com status A
+         */
         while ($linha = mysql_fetch_array($resultado5)){
             $sql = "DELETE FROM itemProtocolo WHERE codProtocolo='".$linha['codProtocolo']."';";
             $resultadosql = mysql_query($sql) or die ("erro sql deletarItemProtocolo".mysql_error());
         }
-
     $sql = "DELETE FROM protocolo WHERE status = 'A'";
     $resultadosql = mysql_query($sql) or die ("erro sql deletarItemProtocolo".mysql_error());
 
-        unset ($_SESSION['codProtocolo']);
+    /*desregistra sessão codProtocolo pois quando entrar na tela de cadastroProtocolo
+     * ele irá verificar se existe uma sessão com o nome, caso estiver ele não grava
+     * o cabecalho no banco, ocasionando um erro de FK ao tentar inserir um tim*/
+    unset ($_SESSION['codProtocolo']);
     }
+    //fim função deletarProtocolosAbertos
 
-
+//inicia verificações para abrir arquivos
     $pagina=$_GET['pagina'];
     
     if ($pagina=="Novo"){
