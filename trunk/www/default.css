@@ -3,7 +3,6 @@ Design by Free CSS Templates
 http://www.freecsstemplates.org
 Released for free under a Creative Commons Attribution 2.5 License
 */
-
 body {
 	margin: 0;
 	padding: 0;
@@ -203,4 +202,15 @@ th {
     color:green;
 }
 
+
+.resultadoImpressao{
+    font-family:arial;
+    font-size:12px;
+}
+
+.linkImpressao a:link a:visited a:active{
+    font-size:13px;
+    color:green;
+    text-decoration:underline;
+}
 

@@ -100,20 +100,24 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
             deletarProtocolosAbertos();
             require("consultaProtocolo.php");
             }
-            if($pagina=="Relatorio"){
-                deletarProtocolosAbertos();
-                require("pdfProtocoloEnviado.php");
+            if($pagina=="Alterar"){
+            require("alterarProtocolo.php");
                 }
-                if($pagina=="Administrador"){
+                if($pagina=="Relatorio"){
                     deletarProtocolosAbertos();
-                    require("indexAdministrador.php");
+                    require("pdfProtocoloEnviado.php");
                     }
-                    if (!($pagina=="Novo" || $pagina=="Consulta"
-                       || $pagina=="Relatorio" || $pagina=="Administrador")){
+                    if($pagina=="Administrador"){
+                        deletarProtocolosAbertos();
+                        require("indexAdministrador.php");
+                        }
+                        if (!($pagina=="Novo" || $pagina=="Consulta"
+                           || $pagina=="Relatorio" || $pagina=="Administrador"
+                           || $pagina=="Alterar")){
 
-                        require ("home.php");
-                         deletarProtocolosAbertos();
-                    }
+                            require ("home.php");
+                            deletarProtocolosAbertos();
+                            }
 
 
 
