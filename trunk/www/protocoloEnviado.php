@@ -5,8 +5,9 @@
 require 'conectar.php';
 
 
-        //sql utilizado pelos demais campos
-        $sql = "select * from itemProtocolo A
+        $sql = "select A.codProtocolo, B.codUsuario, B.codEmpresa, B.status, B.quantidadeContratos,
+                B.dataEnvio, A.nomeCliente, A.cpfCnpjCliente,A.tipo,A.obs
+                from itemProtocolo A
                 join
                 protocolo B
                 on A.codProtocolo = B.codProtocolo
