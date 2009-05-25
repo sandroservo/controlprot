@@ -107,54 +107,62 @@ $sql = "INSERT INTO protocolo (codProtocolo,dataCriacao,status,codUsuario,codEmp
 };*/
 //fim gravar
 
-//inicio formulario
 function gravarItemProtocolo(){
-    $_SESSION['nome'] = $_POST['nome'];
-    $_SESSION['cpfCnpjCliente'] = $_POST['cpfCnpjCliente'];
-    $_SESSION['obs'] = $_POST['obs'];
+    $_SESSION['nome'] = ucwords($_POST['nome']);
+    $_SESSION['obs'] = ucfirst(strtolower($_POST['obs']));
+    $_SESSION['cpfCnpjCliente'] = str_replace(".","",$_POST['cpfCnpjCliente']);
+    $_SESSION['cpfCnpjCliente'] = str_replace("/","",$_SESSION['cpfCnpjCliente']);
+    $_SESSION['cpfCnpjCliente'] = str_replace("-","",$_SESSION['cpfCnpjCliente']);
 
-if (($_SESSION['nome'])=="" || $_SESSION['nome']==" "){
- echo "<div class=\"msgY\">Digite um Nome</div>";
- }
-  if($_SESSION['cpfCnpjCliente']=="" || $_SESSION['cpfCnpjCliente']==" "){
-   echo "<div class=\"msgY\">Digite um CPF ou CNPJ</div>";
-   }if(!($_SESSION['cpfCnpjCliente']=="" || $_SESSION['cpfCnpjCliente']==" " || $_SESSION['nome']=="" || $_SESSION['nome']==" ")){
-
-    $sql_ver = "select * from itemProtocolo A
-            join
-            protocolo B
-            on A.codProtocolo = B.codProtocolo
-            where A.cpfCnpjCliente ='".$_SESSION['cpfCnpjCliente']."'";
-
-    $resultado_ver = mysql_query($sql_ver);
-    $linha_ver = mysql_num_rows($resultado_ver);
-
-    if ($linha_ver>0){
-        echo "<div class=msgY><b>CPF/Cnpj já possui protocolo</b><br>";
-            while ($linha = mysql_fetch_array($resultado_ver)){
-                echo"Protocolo Nº: ".$linha['codProtocolo']." | Enviado: ".$linha['dataEnvio']."<br>";
-                }
-
-        echo "<br>Deseja enviar como Novo ou Pendência?";
-        echo "
-        <form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" action=\"index.php?pagina=Novo\">
-        <table border=\"0\" align=\"center\">
-         <thead>
-         <tr>
-            <td align=\"right\"><input type=\"submit\" value=\"Novo\" name=\"novo\" >
-            <td align=\"right\"><input type=\"submit\" value=\"Pendência\" name=\"pendencia\" >
-         </tr>
-         </thead>
-         <tbody>
-         </tbody>
-         </table>
-         </form></div>";
-                 }else{
-                 $sql = "INSERT INTO itemProtocolo (cpfCnpjCliente,nomeCliente,tipo,codProtocolo,obs,dataPagamento,documento)
-                 VALUES ('".$_SESSION['cpfCnpjCliente']."','".$_SESSION['nome']."','N','".$_SESSION['codProtocolo']."','".$_SESSION['obs']."','0000-00-00','nada')";
-                 $resultadosql = mysql_query($sql) or die ("erro sql gravarItemProtocolo".mysql_error());
-                 }
+//verifica se esta NOME esta vazio
+    if (($_SESSION['nome'])=="" || $_SESSION['nome']==" "){
+    echo "<div class=\"msgY\">Digite um Nome</div>";
+    }
+    //verifica se CPF/CNPJ está vazio e se é menor que 11 caracteres
+    if($_SESSION['cpfCnpjCliente']=="" || $_SESSION['cpfCnpjCliente']==" " || strlen($_SESSION['cpfCnpjCliente'])<11){
+        echo "<div class=\"msgY\">Digite um CPF/CNPJ Valido</div>";
         }
+        //verificar se comparações são verdadeiras e efetua a negação para não entrar no IF e gravar no banco
+        if(!($_SESSION['cpfCnpjCliente']=="" || $_SESSION['cpfCnpjCliente']==" "
+               || $_SESSION['nome']=="" || $_SESSION['nome']==" "
+               || strlen($_SESSION['cpfCnpjCliente'])<11)){
+
+                $sql_ver = "select A.codProtocolo, B.dataEnvio from itemProtocolo A
+                    join
+                    protocolo B
+                    on A.codProtocolo = B.codProtocolo
+                    where A.cpfCnpjCliente ='".$_SESSION['cpfCnpjCliente']."'";
+
+                    $resultado_ver = mysql_query($sql_ver);
+                    $linha_ver = mysql_num_rows($resultado_ver);
+
+                    if ($linha_ver>0){
+                        echo "<div class=msgY><b>CPF/Cnpj já possui protocolo</b><br>";
+
+                        while ($linha = mysql_fetch_array($resultado_ver)){
+                                echo"Protocolo Nº: ".$linha['codProtocolo']." | Enviado: ".$linha['dataEnvio']."<br>";
+                                }
+
+                            echo "<br>Deseja enviar como Novo ou Pendência?";
+                           echo "
+                            <form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" action=\"index.php?pagina=Novo\">
+                            <table border=\"0\" align=\"center\">
+                            <thead>
+                            <tr>
+                            <td align=\"right\"><input type=\"submit\" value=\"Novo\" name=\"novo\" >
+                            <td align=\"right\"><input type=\"submit\" value=\"Pendência\" name=\"pendencia\" >
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            </table>
+                            </form></div>";
+                            }else{
+                                $sql = "INSERT INTO itemProtocolo (cpfCnpjCliente,nomeCliente,tipo,codProtocolo,obs,dataPagamento,documento)
+                                VALUES ('".$_SESSION['cpfCnpjCliente']."','".$_SESSION['nome']."','N','".$_SESSION['codProtocolo']."','".$_SESSION['obs']."','0000-00-00','nada')";
+                                $resultadosql = mysql_query($sql) or die ("erro sql gravarItemProtocolo".mysql_error());
+                                }
+                }
     }
 //fim formulario
 
@@ -200,9 +208,11 @@ function enviarProtocolo(){
             $resultadosql = mysql_query($sql) or die ("erro sql salvarFormulario".mysql_error());
             echo "<div class=\"msgG\">Protocolo Enviado<br>
             <b>Protocolo: ".$_SESSION['codProtocolo']."</b>
+            <br><br>
+            <a class=\"linkImpressao\" href=\"protocoloEnviado.php\" target=\"blank\">Imprimir Protocolo</a>
             </div>";
-    
-                unset ($_SESSION['codProtocolo']);//zera sessa codprotocolo para não abrir o mesmo protocolo depois de enviado
+            $_SESSION['codProtocoloImpressao']=$_SESSION['codProtocolo'];//envia para a var sessao imprimir cod
+            $_SESSION['codProtocolo']="";//zera sessa codprotocolo para não abrir o mesmo protocolo depois de enviado
             }
 
 }
