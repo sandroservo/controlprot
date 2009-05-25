@@ -4,7 +4,7 @@
 function formulario(){
 
 echo "
-<form method=\"POST\" name=\"cabecalhoFormulario\" action=\"index.php?pagina=Novo\">
+<form method=\"POST\" name=\"cabecalhoFormulario\" action=\"index.php?pagina=Alterar\">
 <table border=\"0\" align=center>
 <tr>
   <td class=\"descCampo\" ><label for=\"cpfCnpjCliente\">Cpf/Cnpj:</label></td>
@@ -31,7 +31,7 @@ function itemFormulario(){
     echo "<p align=\"center\">...................................................................................................................................</p>
 
 <div>
-<form method=\"POST\" name=\"itemFormulario\" action=\"index.php?pagina=Novo\">
+<form method=\"POST\" name=\"itemFormulario\" action=\"index.php?pagina=Alterar\">
 <table border=\"0\" width=\"650\" align=\"center\" class=\"tabItemProtocolo\">
 <thead>
 <tr>
@@ -85,10 +85,11 @@ echo "
 </form>";
 }
 //inicio formulario
+/*
 function gravarCabecalho(){
 
 
-    if (isset($_SESSION['codProtocolo']) && !$_SESSION['codProtocolo']==""){
+    if (isset($_SESSION['codProtocolo']) && !$_SESSION['codProtocolo']=="" || array_key_exists('cod', $_GET)){
 
     }else{
         $sql2 = "select * from protocolo order by codProtocolo desc limit 1 ";//busca o ultimo cod que está no banco
@@ -103,7 +104,7 @@ $sql = "INSERT INTO protocolo (codProtocolo,dataCriacao,status,codUsuario,codEmp
 
 
 
-};
+};*/
 //fim gravar
 
 //inicio formulario
@@ -181,10 +182,8 @@ function salvarProtocolo(){
             WHERE codProtocolo = '".$_SESSION['codProtocolo']."' ;";
             $resultadosql = mysql_query($sql) or die ("erro sql salvarFormulario".mysql_error());
             echo "<div class=\"msgG\">Protocolo Salvo com sucesso <br> Protocolo Nº:".$_SESSION['codProtocolo']." </div>";
-
-            $_SESSION['codProtocolo']="";//zera sessa codprotocolo para não abrir o mesmo protocolo depois de salvo
          }
-
+unset ($_SESSION['codProtocolo']);
 }
 
 function enviarProtocolo(){
@@ -201,11 +200,9 @@ function enviarProtocolo(){
             $resultadosql = mysql_query($sql) or die ("erro sql salvarFormulario".mysql_error());
             echo "<div class=\"msgG\">Protocolo Enviado<br>
             <b>Protocolo: ".$_SESSION['codProtocolo']."</b>
-            <br><br>
-            <a class=\"linkImpressao\" href=\"protocoloEnviado.php\" target=\"blank\">Imprimir Protocolo</a>
             </div>";
-            $_SESSION['codProtocoloImpressao']=$_SESSION['codProtocolo'];//envia para a var sessao imprimir cod
-            $_SESSION['codProtocolo']="";//zera sessa codprotocolo para não abrir o mesmo protocolo depois de enviado
+    
+                unset ($_SESSION['codProtocolo']);//zera sessa codprotocolo para não abrir o mesmo protocolo depois de enviado
             }
 
 }
@@ -262,7 +259,6 @@ if(array_key_exists("enviar", $_POST)){
                             && !array_key_exists("item", $_GET)){
                             
                             formulario();
-                            gravarCabecalho();
 
                            }
 

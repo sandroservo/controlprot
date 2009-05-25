@@ -68,7 +68,10 @@ echo "<div><table width=\"650\" border=\"1\" cellspacing=\"0\" bordercolor=\"bla
 <thead>
 <tr >
 <th >Numero Protocolo:</td>";
-if($dado=='nomeCliente' || $dado=='cpfCnpjCliente'){echo "<th >CPF/CNPJ:</td>";}
+if($dado=='nomeCliente' || $dado=='cpfCnpjCliente'){
+    echo "<th >Nome:</td>";
+    echo "<th >CPF/CNPJ:</td>";
+}
 echo "<th >Data Envio:</td>
 <th >Status</td>
 <th >Qtd Contratos</td>
@@ -81,7 +84,10 @@ echo "<th >Data Envio:</td>
         echo "<tr>
         <td class=\"resultCampo\">".$linha['codProtocolo']."</td>";
         if($dado=='nomeCliente' || $dado=='cpfCnpjCliente'){
-            echo "<td class=\"resultCampo\">".$linha['cpfCnpjCliente']."</td>";}
+            echo "<td class=\"resultCampo\">".$linha['nomeCliente']."</td>";
+            echo "<td class=\"resultCampo\">".$linha['cpfCnpjCliente']."</td>";
+
+            }
        
         if(!$linha['dataEnvio']==""){
             echo "<td class=\"resultCampo\">".$linha['dataEnvio'];
@@ -91,18 +97,26 @@ echo "<th >Data Envio:</td>
 
         echo "</td>
         <td class=\"resultCampo\">".$linha['status']."</td>
-        <td class=\"resultCampo\">".$linha['quantidadeContratos']."</td>
-        <td><a href=\"index.php?pagina=Consulta&tipo=alterar&cod=".$linha['codProtocolo']."\">Alterar</td>
-        <td><a href=\"index.php?pagina=Consulta&tipo=excluir&cod=".$linha['codProtocolo']."\">Excluir</td>
-        </tr>";
+        <td class=\"resultCampo\">".$linha['quantidadeContratos']."</td>";
+
+        if ($linha['status']=='S'){
+            echo "<td><a href=\"index.php?pagina=Consulta&tipo=alterar&cod=".$linha['codProtocolo']."\">Alterar</td>";
+            echo "<td><a href=\"index.php?pagina=Consulta&tipo=excluir&cod=".$linha['codProtocolo']."\">Excluir</td>";
+        }else{
+                echo "<td>Alterar</td>";
+                echo "<td>Excluir</td>";
+                }
+        
+        echo "</tr>";
         }
 
 $total = mysql_num_rows($resultado);
 
 echo"<tr>
-<th colspan=\"7\">Total de Registros:$total</th>
+<th colspan=\"8\">Total de Registros:$total</th>
 </tr>
 </table>
+<p>*Status -> S = Salvo | E = Enviado</p>
 </div>";
         
 }
@@ -136,10 +150,11 @@ if (array_key_exists("consultar",$_POST)){
         formulario();
         }
         if ($tipo=="alterar"){
-            ;
-            require("cadastroProtocolo.php?cod=$codProtocolo");
+            $_SESSION['codProtocolo'] = $codProtocolo;
+            echo "<script>window.location=\"index.php?pagina=Alterar\"</script>";//redireciona para pagina index
+
             }
-            if(!$tipo =='excluir' && !array_key_exists("consultar",$_POST)){
+            if(!($tipo=='excluir' || array_key_exists("consultar",$_POST) || $tipo=="alterar")){
                 formulario();
                 }
 
