@@ -1,3 +1,4 @@
+<body onload="document.cabecalhoFormulario.cpfCnpjCliente.focus()">
 <?php
 
 //inicio formulario
@@ -8,7 +9,7 @@ echo "
 <table border=\"0\" align=center>
 <tr>
   <td class=\"descCampo\" ><label for=\"cpfCnpjCliente\">Cpf/Cnpj:</label></td>
-  <td><input type=\"text\" maxlength=\"18\" size=\"23\" name=\"cpfCnpjCliente\" id=\"cpfCnpjCliente\"></td>
+  <td><input type=\"text\" maxlength=\"14\" size=\"23\" name=\"cpfCnpjCliente\" id=\"cpfCnpjCliente\"></td>
   <td class=\"descCampo\" ><label for=\"nome\">Nome:</label></td>
   <td><input type=\"text\" maxlength=\"40\" size=\"43\" name=\"nome\" id=\"nome\"></td>
 </tr>

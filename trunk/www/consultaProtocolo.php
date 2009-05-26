@@ -1,3 +1,4 @@
+<link href="adm.css" rel="stylesheet" type="text/css" />
 <?php
 function formulario(){
     echo "<form name=\"consulta\" action=\"index.php?pagina=Consulta\" method=\"POST\">

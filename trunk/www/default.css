@@ -10,7 +10,7 @@ body {
     background-color:white;
     font-size: 13px;
 	font-family: "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
-	text-align: justify;
+    text-align:justify;
 }
 
 p, ul, ol {
@@ -96,6 +96,7 @@ img {
 
 #page {
 	width: 663px;
+    min-height:250px;
 	margin: 0 auto;
     background: #4C4C4C url(images/img03.gif) no-repeat left bottom;
 	padding: 0px 25px;
@@ -123,16 +124,26 @@ border-color:black;
 border-width:1px;
 font-size:12px;
 }
-
+.descCampoAdm{
+    color:black;
+    font-weight:bold;
+    font-size:12px;
+    
+    
+}
 th {
     color:black;
     background-color:#E8E8E8;
+
 
 }
  .descCampo, p{
     color:white;
     font-weight:bold;
+
 }
+
+
  .descCampoConsulta{
     color:white;
     font-weight:bold;
@@ -208,9 +219,71 @@ th {
     font-size:12px;
 }
 
-#linkImpressao a:link,a:visited,a:active{
+#linkImpressao a:link a:visited{
     font-size:13px;
     color:green;
     text-decoration:underline;
 }
+
+/*###############INICIO DIV ADM (APARECE E DESAPARECE)##################*/
+#central {
+    position:absolute;
+    visibility:hidden;
+    overflow:hidden;
+    background-color:white;
+    border:1px;
+    border-style:ridge;
+    margin:0 auto;
+    margin-left:-385px;
+    left:52%;
+    top:50px;
+    padding:5px;
+    }
+/*______________FIM DIV ADM (APARECE E DESAPARECE)_____________*/
+
+
+/*###############INICIO MENU ADMINISTRADOR##################*/
+
+    #menuhor {
+border:none;
+margin: 0;
+font-size: 12px;
+    	
+}
+
+#menuhor li{
+list-style: none;
+margin: 0;
+display: inline;
+
+}
+#menuhor li a,#menuhor li a:link,#menuhor li a:visited{
+height:1px; /* IE5.0 bug */
+width:141px;
+padding: 5px 26px;
+margin:0;
+border: 1px;
+border-style:solid;
+border-color:black;
+background:#FFFFC0;
+text-decoration: none;
+color:black;
+text-align:center;
+}
+
+#menuhor li a:active{
+background: #FFFF80;
+color:#FF0000;
+border-color: #FF0000;
+
+
+}
+
+#menuhor li a:hover{
+background: #FFFF80;
+color:#FF0000;
+border-color: #FF0000;
+
+}
+/*______________________ FIM MENU ADMINISTRADOR ______________*/
 

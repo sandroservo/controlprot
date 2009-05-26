@@ -1,4 +1,4 @@
-
+<link href="adm.css" rel="stylesheet" type="text/css" />
 <?php
 require 'conectar.php';
 
@@ -17,8 +17,7 @@ function consultar($dado,$campo){
             $sql = "SELECT * FROM usuarios where $dado = $campo";
             $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
             }
-//--SELECT * FROM empresa where codEmpresa = 2
-//--SELECT * FROM empresa where nome like '%1%'
+    $total = mysql_num_rows($resultado);
     while ($linha = mysql_fetch_array($resultado)){
         echo "<table border=\"0\" align=\"center\" >
             <thead>
@@ -80,7 +79,7 @@ echo "<br><br><table border=\"0\" align=\"center\">
         </table>";
 
      }
-     $total = mysql_num_rows($resultado);
+    
 }
 
 
