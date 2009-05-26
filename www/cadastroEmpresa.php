@@ -3,6 +3,10 @@
 session_start();
 ?>
 
+<body onload="document.cadastro.empresa.focus()">
+
+<link href="adm.css" rel="stylesheet" type="text/css" />
+
 <script type="text/javascript">
 
 function verificar(){
@@ -28,41 +32,6 @@ return false
 
 </script>
 
-<style>
-
-
-input{
-border-style:solid;
-border-color:black;
-border-width:1px;
-font-family:verdana;
-font-size:12px;
-}
-label, select{
-font-family:verdana;
-font-size:12px;
-}
-
- .descCampo{
-    background-color:silver;
-    font-weight:bold;
-
-}
-.msg{
-    position:relative;
-    width:500px;
-    text-align:center;
-    border-width:1;
-    border-style:solid;
-    border-color:black;
-    background-color:silver;
-    font-family:verdana;
-    font-size:12;
-    font-weight:bold;
-}
-</style>
-
-
 <?
 require "conectar.php";
 
@@ -78,12 +47,42 @@ echo "<form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" ac
   <td><input type=\"text\" maxlength=\"45\" size=\"50\" name=\"empresa\" id=\"cadastroEmpresa\"></td>
 </tr>
 <tr>
+  <td class=\"descCampo\" ><label for=\"cnpj\">CNPJ:</label></td>
+  <td><input type=\"text\" maxlength=\"14\" size=\"50\" name=\"cnpj\" id=\"cnpj\"></td>
+</tr>
+<tr>
+  <td class=\"descCampo\" ><label for=\"cnpj\">DDD/Telefone:</label></td>
+  <td><input type=\"text\" maxlength=\"3\" size=\"3\" name=\"dddtelefone\" id=\"dddtelefone\">
+      <input type=\"text\" maxlength=\"8\" size=\"42\" name=\"telefone\" id=\"telefone\">
+    </td>
+</tr>
+<tr>
   <td class=\"descCampo\" > <label for=\"status\">Status: </label></td>
-  <td><select name=\"status\" id=\"status\" style=\"width: 320px;\">
+  <td><select name=\"status\" id=\"status\" style=\"width: 326px;\">
 <option>Ativado</option>
 <option>Desativado</option>
 </select></td>
 </tr>
+<tr>
+  <td class=\"descCampo\" ><label for=\"cep\">CEP: </label></td>
+  <td><input type=\"text\" maxlength=\"8\" name=\"cep\" size=\"50\" id=\"cep\"></td>
+</tr>
+<tr>
+  <td class=\"descCampo\" ><label for=\"logradouro\">Logradouro: </label></td>
+  <td><input type=\"text\" maxlength=\"8\" name=\"logradouro\" size=\"50\" id=\"logradouro\"></td>
+</tr>
+<tr>
+  <td class=\"descCampo\" ><label for=\"bairro\">Bairro: </label></td>
+  <td><input type=\"text\" maxlength=\"45\" name=\"bairro\" size=\"50\" id=\"bairro\"></td>
+</tr>
+<tr>
+  <td class=\"descCampo\" ><label for=\"n\">N∫: </label></td>
+  <td><input type=\"text\" maxlength=\"8\" name=\"n\" size=\"12\" id=\"n\">
+  <label for=\"complemento\">Complemento: </label>
+  <input type=\"text\" maxlength=\"8\" name=\"complemento\" size=\"18\" id=\"complemento\">
+    </td>
+</tr>
+<tr>
 <tr>
   <td class=\"descCampo\" ><label for=\"cidade\">Cidade: </label></td>
   <td><input type=\"text\" maxlength=\"45\" name=\"cidade\" size=\"50\" id=\"cidade\"></td>
@@ -91,32 +90,32 @@ echo "<form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" ac
 <tr>
   <td class=\"descCampo\" ><label for=\"estado\">Estado:</label></td>
   <td>
-      <select size=\"1\" name=\"estado\" id=\"estado\" style=\"width: 320px;\"  >
+      <select size=\"1\" name=\"estado\" id=\"estado\" style=\"width: 327px;\"  >
       <option>Selecione</option>
       <option>Acre</option>
       <option>Alagoas</option>
-      <option>Amap√°</option>
+      <option>Amap·°</option>
       <option>Amazonas</option>
       <option>Bahia</option>
-      <option>Cear√°</option>
+      <option>Cear·°</option>
       <option>Distrito Federal</option>
-      <option>Goi√≥s</option>
-      <option>Esp√≠rito Santo</option>
-      <option>Maranh√£o</option>
+      <option>Goi·s</option>
+      <option>EspÌrito Santo</option>
+      <option>Maranh„oo</option>
       <option>Mato Grosso</option>
       <option>Mato Grosso do Sul</option>
       <option>Minas Gerais</option>
-      <option>Par√°</option>
+      <option>Par·°</option>
       <option>Paraiba</option>
-      <option>Paran√°</option>
+      <option>Paran·°</option>
       <option>Pernambuco</option>
-      <option>Piau√≠</option>
+      <option>Piaui≠</option>
       <option>Rio de Janeiro</option>
       <option>Rio Grande do Norte</option>
       <option>Rio Grande do Sul</option>
       <option>Rond√¥nia</option>
       <option>Roraima</option>
-      <option>S√£o Paulo</option>
+      <option>S„o Paulo</option>
       <option>Santa Catarina</option>
       <option>Sergipe</option>
       <option>Tocantins</option>
@@ -132,18 +131,15 @@ echo "<form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" ac
 
 //insere campos por sql no banco de dados
 function gravar(){
-$empresa = $_POST['empresa'];
-$cidade = $_POST['cidade'];
+$empresa = ucwords($_POST['empresa']);
+$cidade = ucwords($_POST['cidade']);
 $status = $_POST['status'];
 $estado = $_POST['estado'];
-/*if ($empresa=='' && $empresa=='' && $estado=='' && $_POST['empresa'] ){
-   echo "<div class=msg>falta tudo</div>";
-   }else {
-         echo "Registro gravado com sucesso";
-         }*/
+
+
 $sql = "INSERT INTO empresa (codEmpresa,nome,cidade,estado,status) VALUES (' ','$empresa','$cidade','$estado','$status')";
 $resultadosql = mysql_query($sql) or die ("erro sql".mysql_error());
-echo "<div class=msg>Registro gravado com sucesso</div>";
+echo "<div class=msgG>Registro gravado com sucesso</div>";
 
 };
 //fim gravar

@@ -38,8 +38,19 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 <head>
 <title>Controlprot - Sistema de Controle de Protocolos</title>
 <link href="default.css" rel="stylesheet" type="text/css" />
+<script>
+function trocar(tipo){
+		var Layer = document.getElementById("central");
+  		
+        if (tipo == 1){
+			Layer.style.visibility = 'visible';
+		} else {
+			Layer.style.visibility = 'hidden';
+		}
+}
+</script>
 </head>
-<body>
+<body >
 <!-- inicio menu -->
 <div id="logo">
 
@@ -52,7 +63,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
             <li><a href="index.php?pagina=Novo">Novo Protocolo</a></li>
 			<li><a href="index.php?pagina=Consulta">Consultar Protocolo</a></li>
 			<li><a href="pdfProtocoloEnviado.php">Relatório de Protocolos</a></li>
-          	<li><a href="index.php?pagina=Administrador">Administrador</a>
+          	<li><a href="#" onClick="trocar(1)">Administrador</a>
                 
             <li class="last"><a href="#">Sair</a></li>
 		</ul>
@@ -134,6 +145,14 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 <!--inicio rodape-->
 <div id="footer">
 	<p id="legal">Desenvolvido por Charles Reitz - 2009</p>
+</div>
+
+<!--div ADM | VEM POR PADRÃO INVISIVEL-->
+
+<div id="central">
+<?php include 'admin.php'; ?>
+</div>
+
 <!-- fim rodape -->
 </body>
 </html>
