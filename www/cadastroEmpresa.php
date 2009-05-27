@@ -51,9 +51,9 @@ echo "<form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" ac
   <td><input type=\"text\" maxlength=\"14\" size=\"50\" name=\"cnpj\" id=\"cnpj\"></td>
 </tr>
 <tr>
-  <td class=\"descCampo\" ><label for=\"cnpj\">DDD/Telefone:</label></td>
-  <td><input type=\"text\" maxlength=\"3\" size=\"3\" name=\"dddtelefone\" id=\"dddtelefone\">
-      <input type=\"text\" maxlength=\"8\" size=\"42\" name=\"telefone\" id=\"telefone\">
+  <td class=\"descCampo\" ><label for=\"cnpj\">DDD: </label></td>
+  <td><input type=\"text\" maxlength=\"3\" size=\"3\" name=\"dddTelefone\" id=\"dddTelefone\">
+      <label>Telefone:</labels> <input type=\"text\" maxlength=\"8\" size=\"32\" name=\"telefone\" id=\"telefone\">
     </td>
 </tr>
 <tr>
@@ -69,7 +69,7 @@ echo "<form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" ac
 </tr>
 <tr>
   <td class=\"descCampo\" ><label for=\"logradouro\">Logradouro: </label></td>
-  <td><input type=\"text\" maxlength=\"8\" name=\"logradouro\" size=\"50\" id=\"logradouro\"></td>
+  <td><input type=\"text\" maxlength=\"45\" name=\"logradouro\" size=\"50\" id=\"logradouro\"></td>
 </tr>
 <tr>
   <td class=\"descCampo\" ><label for=\"bairro\">Bairro: </label></td>
@@ -131,15 +131,24 @@ echo "<form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" ac
 
 //insere campos por sql no banco de dados
 function gravar(){
-$empresa = ucwords($_POST['empresa']);
-$cidade = ucwords($_POST['cidade']);
+$empresa = ucwords(strtolower($_POST['empresa']));
+$cidade = $_POST['logradouro'];
 $status = $_POST['status'];
 $estado = $_POST['estado'];
+$numero = $_POST['n'];
+$bairro = ucwords(strtolower($_POST['bairro']));
+$cnpj = $_POST['cnpj'];
+$complemento = ucfirst(strtolower($_POST['complemento']));
+$telefone = $_POST['telefone'];
+$dddTelefone = $_POST['dddTelefone'];
+$cep = $_POST['cep'];
+$logradouro = ucfirst(strtolower($_POST['logradouro']));
 
 
-$sql = "INSERT INTO empresa (codEmpresa,nome,cidade,estado,status) VALUES (' ','$empresa','$cidade','$estado','$status')";
+$sql = "INSERT INTO empresa (nome,cidade,estado,status,numero,bairro,cnpj,complemento,telefone,dddTelefone,cep,logradouro)
+VALUES ('$empresa','$cidade','$estado','$status','$numero','$bairro','$cnpj','$complemento','$telefone','$dddTelefone','$cep','$logradouro')";
 $resultadosql = mysql_query($sql) or die ("erro sql".mysql_error());
-echo "<div class=msgG>Registro gravado com sucesso</div>";
+echo "<center><div class=msgG>Registro gravado com sucesso</div></center>";
 
 };
 //fim gravar

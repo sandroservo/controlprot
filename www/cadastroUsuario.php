@@ -105,7 +105,7 @@ function gravar(){
     $numeroAleatorio = rand();
     $senha = md5($numeroAleatorio.dificilsenha2009);
 
-$nome = ucwords($_POST['nome']);
+$nome = ucwords(strtolower($_POST['nome']));
 $email = strtolower($_POST['email']);
 $dataCriacao = $_POST['datacriacao'];
 $nivel = $_POST['nivel'];
@@ -121,7 +121,7 @@ $cpf = str_replace("-","",$cpf);
 $cpf = str_replace("/","",$cpf);
 $cpf = str_replace("_","",$cpf);
 
-$login = substr($cpf,0,5);
+$login = substr($cpf,0,6);
 
 //inicio if - faz a verificaçao de qual varial recebeu conteudo da checkbox
 if ($produto1 == ""){
@@ -150,12 +150,15 @@ if ($produto2 <>"" && $produto3 <> "" && $produto1 <>""){
 //fim if
 
 
-$sql = "INSERT INTO usuarios (codUsuario,nome,email,produto,senha,dataCriacao,nivel,status,codEmpresa) VALUES (' ','$nome','$email','$todas','$senha',now(),'$nivel','$status','$codEmpresa')";
+$sql = "INSERT INTO usuarios (nome,email,produto,senha,dataCriacao,nivel,status,codEmpresa,cpf,login)
+VALUES ('$nome','$email','$todas','$senha',now(),'$nivel','$status','$codEmpresa','$cpf','$login')";
 $resultadosql = mysql_query($sql) or die ("erro sql".mysql_error());
 
-echo "<font aling=center><div class=msg>Usuário gravado com sucesso<br>
+echo "<center><div class=msgG>Usu�rio gravado com sucesso<br>
+Login: $login
+<br>
 Senha para Acesso: $numeroAleatorio
-</div></font>";
+</div></center>";
 
 };
 //fim gravar
