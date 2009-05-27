@@ -1,5 +1,7 @@
 <? session_start();?>
 
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
 
@@ -62,7 +64,7 @@ function trocar(tipo){
             <li><a href="index.php">Home</a><li>
             <li><a href="index.php?pagina=Novo">Novo Protocolo</a></li>
 			<li><a href="index.php?pagina=Consulta">Consultar Protocolo</a></li>
-			<li><a href="pdfProtocoloEnviado.php">Relatório de Protocolos</a></li>
+			<li><a href="index.php?pagina=Relatorio">Relatório de Protocolos</a></li>
           	<li><a href="#" onClick="trocar(1)">Administrador</a>
                 
             <li class="last"><a href="#">Sair</a></li>
@@ -76,6 +78,7 @@ function trocar(tipo){
   <p>
     <?php
     require "conectar.php";
+    require 'util.php';
     //verificar se existe protocolos com status 'A' e deleta
     function deletarProtocolosAbertos(){
     $sql5 = "select codProtocolo,status from protocolo where status = 'A'";
@@ -116,7 +119,7 @@ function trocar(tipo){
                 }
                 if($pagina=="Relatorio"){
                     deletarProtocolosAbertos();
-                    require("pdfProtocoloEnviado.php");
+                    require("relatorioProtocolo.php");
                     }
                     if($pagina=="Administrador"){
                         deletarProtocolosAbertos();
