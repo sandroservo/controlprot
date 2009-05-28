@@ -40,17 +40,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 <head>
 <title>Controlprot - Sistema de Controle de Protocolos</title>
 <link href="default.css" rel="stylesheet" type="text/css" />
-<script>
-function trocar(tipo){
-		var Layer = document.getElementById("central");
-  		
-        if (tipo == 1){
-			Layer.style.visibility = 'visible';
-		} else {
-			Layer.style.visibility = 'hidden';
-		}
-}
-</script>
+<script language="JavaScript" src="util.js"></script>
 </head>
 <body >
 <!-- inicio menu -->
