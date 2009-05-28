@@ -1,7 +1,15 @@
 <? session_start();?>
+<body >
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <script language=\"JavaScript\" src=\"util.js\"></script>
 <link href="default.css" rel="stylesheet" type="text/css" />
-<body onload="window.print()">
+  </head>
+  <body onload="window.print()">
 <?php
+
 require 'conectar.php';
 require 'util.php';
 
@@ -13,7 +21,7 @@ require 'util.php';
 
 
 
-            
+
 
 echo "<h2>Protocolo enviado por data</h2>";
 
@@ -31,8 +39,8 @@ while ($linha = mysql_fetch_assoc($resultado_w)){
     echo"
         <tr>
         <td class=\"resultadoImpressao\">".$linha['codProtocolo']."</td>
-        <td class=\"resultadoImpressao\">".mysql_datetime_para_humano($linha['dataCriacao'])."</td>
-        <td class=\"resultadoImpressao\">".mysql_datetime_para_humano($linha['dataEnvio'])."</td>
+        <td class=\"resultadoImpressao\">".$linha['dataCriacao']."</td>
+        <td class=\"resultadoImpressao\">".$linha['dataEnvio']."</td>
         <td class=\"resultadoImpressao\">".$linha['quantidadeContratos']."</td>
         <td class=\"resultadoImpressao\">".$linha['codUsuario']."</td>
         </tr>";
@@ -45,5 +53,5 @@ while ($linha = mysql_fetch_assoc($resultado_w)){
     </table>";
 
 ?>
-
-</body>
+  </body>
+</html>
