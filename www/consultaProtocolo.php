@@ -91,7 +91,7 @@ echo "<th >Data Envio:</td>
             }
        
         if(!$linha['dataEnvio']==""){
-            echo "<td class=\"resultCampo\">".$linha['dataEnvio'];
+            echo "<td class=\"resultCampo\">".dtPadrao($linha['dataEnvio']);
                 }else{
                     echo"<td class=\"resultCampo\">Não Enviado</td>";
                     }

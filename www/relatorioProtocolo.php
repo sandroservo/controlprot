@@ -11,9 +11,9 @@ function formulario(){
     <tbody>
     <tr>
         <td class=\"descCampo\">Data Inicial: </td>
-        <td><input type=\"text\" name=\"dtInicial\" value=\"\" size=\"20\" ></td>
+        <td><input type=\"text\" name=\"dtInicial\" value=\"\" size=\"20\" onKeyUp=\"DigitaData(this)\">></td>
         <td class=\"descCampo\"d>Data Final</td>
-        <td><input type=\"text\" name=\"dtFinal\" value=\"\" size=\"20\"></td>
+        <td><input type=\"text\" name=\"dtFinal\" value=\"\" size=\"20\" onKeyUp=\"DigitaData(this)\"></td>
     </tr>
     <tr>
         <td colspan=\"4\" align=\"right\"><input type=\"submit\" value=\"Imprimir\" name=\"imprimir\" /></td>

@@ -44,7 +44,7 @@ function consultar($dado,$campo){
                 <td><label>Solicitar Nova Senha</label></td>
             </tr>
             <tr>
-                <td><label>Data Criação:</label></td>
+                <td><label>Data Cria��oo:</label></td>
                 <td><label>".$linha['dataCriacao']."</label></td>
             </tr>
             <tr>
@@ -90,8 +90,6 @@ function formulario(){
     <tr>
         <th height=\"30\"><label for=\"codigo\"><input type=\"radio\" name=\"dado\" value=\"codUsuario\" id=\"codigo\" CHECKED/>Codigo</label></th>
         <th height=\"30\"><label for=\"nome\"><input type=\"radio\" name=\"dado\" value=\"nome\" id=\"nome\"/>Nome</label</th>
-        <th height=\"30\"><label for=\"dataCriacao\"><input type=\"radio\" name=\"dado\" value=\"dataCriacao\" id=\"dataCriacao\"/>Data Criação</label></th>
-        <th height=\"30\"><label for=\"status\"><input type=\"radio\" name=\"dado\" value=\"status\" id=\"status\"/>Status</label></th>
         <th height=\"30\"><label for=\"codEmpresa\"><input type=\"radio\" name=\"dado\" value=\"codEmpresa\" id=\"codEmpresa\"/>Empresa</label></th>
 </tr>
     </thead>
