@@ -29,6 +29,7 @@ formulario();
 if (array_key_exists("imprimir",$_POST)){
 $_SESSION['dtInicial'] = dtBanco($_POST['dtInicial']);
 $_SESSION['dtFinal'] = dtBanco($_POST['dtFinal']);
+echo "<script>window.open('relatorioProtocoloImprimir.php','_blank');</script>";
 
     }
 
