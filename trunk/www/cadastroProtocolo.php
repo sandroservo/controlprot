@@ -179,7 +179,7 @@ function gravarItemProtocoloNovo(){
 }
 
 function salvarProtocolo(){
-    $sql = "Select codProtocolo from itemprotocolo where codProtocolo='".$_SESSION['codProtocolo']."';";
+    $sql = "Select codProtocolo from itemProtocolo where codProtocolo='".$_SESSION['codProtocolo']."';";
     $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
     $total = mysql_num_rows($resultado);
 
@@ -199,7 +199,7 @@ function salvarProtocolo(){
 
 function enviarProtocolo(){
 
-    $sql = "Select codProtocolo from itemprotocolo where codProtocolo='".$_SESSION['codProtocolo']."';";
+    $sql = "Select codProtocolo from itemProtocolo where codProtocolo='".$_SESSION['codProtocolo']."';";
     $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
         $total = mysql_num_rows($resultado);
     if ($total<=0){
