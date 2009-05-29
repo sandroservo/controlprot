@@ -212,7 +212,7 @@ function enviarProtocolo(){
             echo "<div class=\"msgG\">Protocolo Enviado<br>
             <b>Protocolo: ".$_SESSION['codProtocolo']."</b>
             <br><br>
-            <a id=\"linkImpressao\" href=\"protocoloEnviado.php\" target=\"blank\">Imprimir Protocolo</a>
+            <label><a id=\"linkImpressao\" href=\"protocoloEnviado.php\" target=\"blank\">Imprimir Protocolo</a></label>
             </div>";
             $_SESSION['codProtocoloImpressao']=$_SESSION['codProtocolo'];//envia para a var sessao imprimir cod
             $_SESSION['codProtocolo']="";//zera sessa codprotocolo para não abrir o mesmo protocolo depois de enviado

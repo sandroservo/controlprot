@@ -12,21 +12,53 @@ session_start();
 function verificar(){
 
 if (document.cadastro.empresa.value==""){
-document.cadastro.empresa.focus()
-alert("Digite um Nome")
-return false
+    document.cadastro.empresa.focus()
+    alert("Digite um Nome")
+    return false
 }
-if (document.cadastro.cidade.value==""){
-document.cadastro.cidade.focus()
-alert("Digite uma Cidade")
-return false
+if (document.cadastro.cnpj==""){
+    document.cadastro.cnpj.focus()
+    alert("Digite um CNPJ")
+    return false
 }
-if (document.cadastro.estado.value==Selecione)
-{
-document.cadastro.estado.focus()
-alert('Selecione Estado')
-return false
+if (document.cadastro.dddTelefone==""){
+    document.cadastro.dddTelefone.focus()
+    alert("Digite DDD")
+    return false
 }
+if (document.cadastro.telefone==""){
+    document.cadastro.telefone.focus()
+    alert("Digite um Telefone")
+    return false
+}
+if (document.cadastro.cep==""){
+    document.cadastro.cep.focus()
+    alert("Digite um CEP")
+    return false
+}
+if (document.cadastro.logradouro==""){
+    document.cadastro.logradouro.focus()
+    alert("Digite um Logradouro")
+    return false
+}
+if (document.cadastro.bairro==""){
+    document.cadastro.bairro.focus()
+    alert("Digite um Bairro")
+    return false
+}
+if (document.cadastro.numero==""){
+    document.cadastro.numero.focus()
+    alert("Digite o numero do endereço")
+    return false
+}
+
+if (document.cadastro.estado.value=="Selecione"){
+    document.cadastro.estado.focus()
+    alert('Selecione Estado')
+    return false
+    }
+
+
 }
 
 
@@ -43,54 +75,54 @@ function formulario(){
 echo "<form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" action=\"cadastroEmpresa.php\">
 <table border=\"0\" align=center>
 <tr>
-  <td class=\"descCampo\" ><label for=\"empresa\">Empresa:</label></td>
-  <td><input type=\"text\" maxlength=\"45\" size=\"50\" name=\"empresa\" id=\"cadastroEmpresa\"></td>
+  <td class=\"descCampo\" ><label>Empresa:</label></td>
+  <td><input type=\"text\" maxlength=\"45\" size=\"50\" name=\"empresa\"></td>
 </tr>
 <tr>
-  <td class=\"descCampo\" ><label for=\"cnpj\">CNPJ:</label></td>
-  <td><input type=\"text\" maxlength=\"14\" size=\"50\" name=\"cnpj\" id=\"cnpj\"></td>
+  <td class=\"descCampo\" ><label>CNPJ:</label></td>
+  <td><input type=\"text\" value=\"\" maxlength=\"14\" size=\"50\" name=\"cnpj\"></td>
 </tr>
 <tr>
-  <td class=\"descCampo\" ><label for=\"cnpj\">DDD: </label></td>
-  <td><input type=\"text\" maxlength=\"3\" size=\"3\" name=\"dddTelefone\" id=\"dddTelefone\">
-      <label>Telefone:</labels> <input type=\"text\" maxlength=\"8\" size=\"32\" name=\"telefone\" id=\"telefone\">
+  <td class=\"descCampo\" ><label>DDD: </label></td>
+  <td><input type=\"text\" value=\"\" maxlength=\"3\" size=\"3\" name=\"dddTelefone\">
+      <label>Telefone:</labels> <input type=\"text\" maxlength=\"8\" size=\"32\" name=\"telefone\">
     </td>
 </tr>
 <tr>
-  <td class=\"descCampo\" > <label for=\"status\">Status: </label></td>
+  <td class=\"descCampo\" > <label>Status: </label></td>
   <td><select name=\"status\" id=\"status\" style=\"width: 326px;\">
 <option>Ativado</option>
 <option>Desativado</option>
 </select></td>
 </tr>
 <tr>
-  <td class=\"descCampo\" ><label for=\"cep\">CEP: </label></td>
-  <td><input type=\"text\" maxlength=\"8\" name=\"cep\" size=\"50\" id=\"cep\"></td>
+  <td class=\"descCampo\" ><label >CEP: </label></td>
+  <td><input type=\"text\" maxlength=\"8\" name=\"cep\" size=\"50\"></td>
 </tr>
 <tr>
-  <td class=\"descCampo\" ><label for=\"logradouro\">Logradouro: </label></td>
-  <td><input type=\"text\" maxlength=\"45\" name=\"logradouro\" size=\"50\" id=\"logradouro\"></td>
+  <td class=\"descCampo\" ><label>Logradouro: </label></td>
+  <td><input type=\"text\" maxlength=\"45\" name=\"logradouro\" size=\"50\"></td>
 </tr>
 <tr>
-  <td class=\"descCampo\" ><label for=\"bairro\">Bairro: </label></td>
-  <td><input type=\"text\" maxlength=\"45\" name=\"bairro\" size=\"50\" id=\"bairro\"></td>
+  <td class=\"descCampo\" ><label>Bairro: </label></td>
+  <td><input type=\"text\" maxlength=\"45\" name=\"bairro\" size=\"50\"></td>
 </tr>
 <tr>
-  <td class=\"descCampo\" ><label for=\"n\">Nº: </label></td>
+  <td class=\"descCampo\" ><label>Nº: </label></td>
   <td><input type=\"text\" maxlength=\"8\" name=\"n\" size=\"12\" id=\"n\">
   <label for=\"complemento\">Complemento: </label>
-  <input type=\"text\" maxlength=\"8\" name=\"complemento\" size=\"18\" id=\"complemento\">
+  <input type=\"text\" maxlength=\"8\" name=\"complemento\" size=\"18\">
     </td>
 </tr>
 <tr>
 <tr>
-  <td class=\"descCampo\" ><label for=\"cidade\">Cidade: </label></td>
-  <td><input type=\"text\" maxlength=\"45\" name=\"cidade\" size=\"50\" id=\"cidade\"></td>
+  <td class=\"descCampo\" ><label>Cidade: </label></td>
+  <td><input type=\"text\" maxlength=\"45\" name=\"cidade\" size=\"50\"></td>
 </tr>
 <tr>
-  <td class=\"descCampo\" ><label for=\"estado\">Estado:</label></td>
+  <td class=\"descCampo\" ><label>Estado:</label></td>
   <td>
-      <select size=\"1\" name=\"estado\" id=\"estado\" style=\"width: 327px;\"  >
+      <select size=\"1\" name=\"estado\" style=\"width: 327px;\"  >
       <option>Selecione</option>
       <option>Acre</option>
       <option>Alagoas</option>

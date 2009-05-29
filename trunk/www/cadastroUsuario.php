@@ -10,20 +10,21 @@ session_start();
 
 function verificar(){
 if (document.cadastro.nome.value==""){
-document.cadastro.nome.focus()
-alert("Digite um Nome")
-return false
+    document.cadastro.nome.focus()
+    alert("Digite um Nome")
+    return false
 }
 if (document.cadastro.email.value==""){
-document.cadastro.email.focus()
-alert("Digite um Email")
-return false
+    document.cadastro.email.focus()
+    alert("Digite um Email")
+    return false
 }
-if (document.cadastro.codEmpresa.value==""){
-document.cadastro.email.focus()
-alert("Digite uma Empresa")
-return false
+if (document.cadastro.cpf.value==""){
+    document.cadastro.cpf.focus()
+    alert("Digite um CPF")
+    return false
     }
+
 }
 </script>
 
@@ -44,8 +45,8 @@ echo "<body onLoad=\"aa()\"><form method=\"POST\" name=\"cadastro\" onSubmit=\"r
   <td><input type=\"text\" size=\"50\" name=\"nome\" id=\"nome\"></td>
 </tr>
 <tr>
-  <td class=\"descCampo\" ><label for=\"email\" >Email: </label></td>
-  <td><input type=\"text\" size=\"50\" name=\"email\" id=\"email\"></td>
+  <td class=\"descCampo\" ><label>Email: </label></td>
+  <td><input type=\"text\" size=\"50\" name=\"email\"></td>
 </tr>
 <tr>
   <td class=\"descCampo\" ><label for=\"cpf\">CPF: </cpf></td>
@@ -62,9 +63,9 @@ echo "<body onLoad=\"aa()\"><form method=\"POST\" name=\"cadastro\" onSubmit=\"r
 <tr>
   <td class=\"descCampo\" ><label for=\"nivel\">Nivel: </label></td>
   <td><select size=\"1\" name=\"nivel\" id=\"nivel\" style=\"width: 320px;\">
-   <option>Administrador</option>
+   <option>Usu·rio</option>
    <option>Receptor</option>
-   <option>Usu√°rio</option>
+   <option>Administrador</option>
    </select>
 </tr>
 <tr>

@@ -16,7 +16,7 @@ function formulario(){
     <tbody>
     <tr>
 
-        <td colspan=\"4\">
+        <td class=\"descCampo\" colspan=\"4\" >
             Consulta:
             <input type=\"text\" name=\"campo\" value=\"\" size=\"53\" id=\"campo\">
             <input type=\"submit\" value=\"Consultar\" name=\"consultar\" />
