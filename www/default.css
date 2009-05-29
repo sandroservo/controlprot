@@ -13,6 +13,12 @@ body {
     text-align:justify;
 }
 
+#linkImpressao, a:link a:visited{
+    font-size:13px;
+    color:green;
+    text-decoration:underline;
+}
+
 p, ul, ol {
 	margin: 0 0 2em 0;
 	text-align: justify;
@@ -128,15 +134,12 @@ font-size:12px;
     color:black;
     font-weight:bold;
     font-size:12px;
-    
-    
 }
 th {
     color:black;
     background-color:#E8E8E8;
-
-
 }
+
  .descCampo{
     color:white;
     font-weight:bold;
@@ -151,7 +154,7 @@ th {
 }
 
 .resultCampo{
-    padding-bottom:5;
+    
     color:white;
 }
 
@@ -219,11 +222,7 @@ th {
     font-size:12px;
 }
 
-#linkImpressao a:link a:visited{
-    font-size:13px;
-    color:green;
-    text-decoration:underline;
-}
+
 
 /*###############INICIO DIV ADM (APARECE E DESAPARECE)##################*/
 #central {
