@@ -13,10 +13,61 @@ body {
     text-align:justify;
 }
 
-#linkImpressao, a:link a:visited{
+.fundoLogin{
+    position:relative;
+    height:350px;
+    
+    /*####USAR SOMENTE PARA LOGO ######*/
+    background: url('images/logo.png') no-repeat center top;
+    top:50px;
+
+    /*####USAR SOMENTE PARA LOGO SEGUNDO OPCAO######*/
+    /*background: url('images/logo_segundaopcao.png') no-repeat center top;
+    top:100px;*/
+}
+.index{
+    position:relative;
+
+    /*####USAR SOMENTE PARA LOGO ######*/
+    top:220px;
+    
+    /*####USAR SOMENTE PARA LOGO SEGUNDO OPCAO######*/
+    /*top:60px;*/
+    
+}
+
+.fundoTransparente{
+   position:absolute;
+   background: url('images/fundo_transparente_preto.png') repeat center top;
+   top:0px;
+   visibility:visible;
+   overflow:hidden;
+   height:100%;
+   width:100%;
+}
+.trocaSenha{
+    margin-top:20%;
+    background-color:black;
+    height:100px;
+    width:300px;
+
+}
+
+.linkImpressao a:link, .linkImpressao a:visited{
     font-size:13px;
     color:green;
     text-decoration:underline;
+}
+.linkLogin a:link, .linkLogin a:visited,.linkLogin a:active{
+    font-size:13px;
+    color:green;
+    text-decoration:underline;
+}
+.linkLogin a:hover{
+    font-size:13px;
+    color:black;
+    text-decoration:underline;
+    font-weight:bold;
 }
 
 p, ul, ol {
@@ -95,8 +146,10 @@ img {
 
 #logo {
 	width: 713px;
-	height: 50px;
+	height: 60px;
 	margin: 0 auto;
+    
+    background: url('images/logo_index2.png') no-repeat left top;
 }
 
 /* Page */
@@ -229,6 +282,10 @@ th {
     font-size:12px;
 }
 
+h3 {
+    color:white;
+}
+
 
 
 /*###############INICIO DIV ADM (APARECE E DESAPARECE)##################*/
@@ -242,7 +299,7 @@ th {
     margin:0 auto;
     margin-left:-385px;
     left:52%;
-    top:50px;
+    top:60px;
     padding:5px;
     }
 /*______________FIM DIV ADM (APARECE E DESAPARECE)_____________*/

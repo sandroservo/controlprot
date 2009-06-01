@@ -1,4 +1,10 @@
-<? session_start()?>
+<? session_start();
+if(!isset($_SESSION["loginIndex"])){
+echo "<script language=\"JavaScript\">
+document.location=\"index.php\";
+</script>";
+exit;}
+?>
 <link href="adm.css" rel="stylesheet" type="text/css" />
 <?php
 require 'conectar.php';

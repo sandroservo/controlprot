@@ -1,6 +1,9 @@
-
-<?
-
+<? session_start();
+if(!isset($_SESSION["loginIndex"])){
+echo "<script language=\"JavaScript\">
+document.location=\"index.php\";
+</script>";
+exit;}
 /*######### FUNCÕES DE DATAS ####################################
 Função que converte Y-m-d para d/m/Y
 Utilizado para manipular datas no formato Date do MySQL

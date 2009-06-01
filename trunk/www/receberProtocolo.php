@@ -1,7 +1,10 @@
-<body onload="document.cabecalhoFormulario.cpfCnpjCliente.focus()">
 <?php
-
-
+if(!isset($_SESSION["loginIndex"])){
+echo "<script language=\"JavaScript\">
+document.location=\"index.php\";
+</script>";
+exit;}
+echo "<body onload=\"document.cabecalhoFormulario.cpfCnpjCliente.focus()\">";
 function formulario(){
 
 $sql = "select * from itemProtocolo A
@@ -20,7 +23,7 @@ $sql = "select * from itemProtocolo A
     echo "<p align=\"center\">...................................................................................................................................</p>
 
 <div>
-<form method=\"POST\" name=\"formulario\" action=\"index.php?pagina=Receber\">
+<form method=\"POST\" name=\"formulario\" action=\"index2.php?pagina=Receber\">
 <table border=\"0\" width=\"650\" align=\"center\" class=\"tabItemProtocolo\">
 <thead>
 <tr>

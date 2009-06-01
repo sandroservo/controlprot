@@ -1,11 +1,16 @@
-<body onload="document.cabecalhoFormulario.cpfCnpjCliente.focus()">
 <?php
+echo "<body onload=\"document.cabecalhoFormulario.cpfCnpjCliente.focus()\">";
+if(!isset($_SESSION["loginIndex"])){
+echo "<script language=\"JavaScript\">
+document.location=\"index.php\";
+</script>";
+exit;}
 
 //inicio formulario
 function formulario(){
 
 echo "
-<form method=\"POST\" name=\"cabecalhoFormulario\" action=\"index.php?pagina=Alterar\">
+<form method=\"POST\" name=\"cabecalhoFormulario\" action=\"index2.php?pagina=Alterar\">
 <table border=\"0\" align=center>
 <tr>
   <td class=\"descCampo\" ><label for=\"cpfCnpjCliente\">Cpf/Cnpj:</label></td>
@@ -32,7 +37,7 @@ function itemFormulario(){
     echo "<p align=\"center\">...................................................................................................................................</p>
 
 <div>
-<form method=\"POST\" name=\"itemFormulario\" action=\"index.php?pagina=Alterar\">
+<form method=\"POST\" name=\"itemFormulario\" action=\"index2.php?pagina=Alterar\">
 <table border=\"0\" width=\"650\" align=\"center\" class=\"tabItemProtocolo\">
 <thead>
 <tr>
@@ -60,7 +65,7 @@ function itemFormulario(){
             <td class=\"resultCampo\">".$linha['cpfCnpjCliente']."</td>
             <td class=\"resultCampo\" align=\"center\">".$linha['tipo']."</td>
             <td class=\"resultCampo\">".$linha['obs']."</td>
-            <td><a href=\"index.php?pagina=Novo&item=".$linha['cpfCnpjCliente']."\" >X</a></td>
+            <td><a href=\"index2.php?pagina=Novo&item=".$linha['cpfCnpjCliente']."\" >X</a></td>
         </tr>";
         }
 
@@ -125,7 +130,7 @@ function gravarItemProtocolo(){
 
                             echo "<br>Deseja enviar como Novo ou Pendência?";
                            echo "
-                            <form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" action=\"index.php?pagina=Novo\">
+                            <form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" action=\"index2.php?pagina=Novo\">
                             <table border=\"0\" align=\"center\">
                             <thead>
                             <tr>
