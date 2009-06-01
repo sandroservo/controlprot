@@ -3,6 +3,7 @@
 <body onload="window.print()">
 <?php
 require 'conectar.php';
+require 'util.php';
 
 
         $sql = "select A.codProtocolo, B.codUsuario, B.codEmpresa, B.status, B.quantidadeContratos,
@@ -41,7 +42,7 @@ echo "<table border=\"1\" width=\"800\" cellspacing=\"0\" bordercolor=\"black\">
     <tbody>
     <tr>
         <th width=\"100\">Enviado em:</th>
-        <td width=\"300\">".$linha['dataEnvio']."</td>
+        <td width=\"300\">".mysql_datetime_para_humano($linha['dataEnvio'])."</td>
         <th width=\"100\">Empresa:</th>
         <td width=\"300\">".$linha_empresa['nome']." [".$linha_empresa['codEmpresa']."]</td>
     </tr>

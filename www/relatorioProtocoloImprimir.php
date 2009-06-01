@@ -39,8 +39,8 @@ while ($linha = mysql_fetch_assoc($resultado_w)){
     echo"
         <tr>
         <td class=\"resultadoImpressao\">".$linha['codProtocolo']."</td>
-        <td class=\"resultadoImpressao\">".$linha['dataCriacao']."</td>
-        <td class=\"resultadoImpressao\">".$linha['dataEnvio']."</td>
+        <td class=\"resultadoImpressao\">".mysql_datetime_para_humano($linha['dataCriacao'])."</td>
+        <td class=\"resultadoImpressao\">".mysql_datetime_para_humano($linha['dataEnvio'])."</td>
         <td class=\"resultadoImpressao\">".$linha['quantidadeContratos']."</td>
         <td class=\"resultadoImpressao\">".$linha['codUsuario']."</td>
         </tr>";

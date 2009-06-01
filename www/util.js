@@ -90,24 +90,3 @@ function trocar(tipo){
 //_____________________________________________________________
 
 
-
-// Código Original/ Original Code by Woodys
-// Converte formato do DATETIME do MySQL para um compreensível para os homens
-// 2003-12-30 23:30:59 -> 30/12/2003 23:30:59
-function mysql_datetime_para_humano($dt) {
-        $yr=strval(substr($dt,0,4));
-        $mo=strval(substr($dt,5,2));
-        $da=strval(substr($dt,8,2));
-        $hr=strval(substr($dt,11,2));
-        $mi=strval(substr($dt,14,2));
-        return date("d/m/Y H:i:s", mktime ($hr,$mi,0,$mo,$da,$yr));
-}
-// Converte formato DATE do MySQL para o humano
-// 2003-12-30 -> 30/12/2003
-function mysql_date_para_humano($dt) {
-        if ($dt=="0000-00-00") return '';
-        $yr=strval(substr($dt,0,4));
-        $mo=strval(substr($dt,5,2));
-        $da=strval(substr($dt,8,2));
-        return date("d/m/Y", mktime (0,0,0,$mo,$da,$yr));
-}

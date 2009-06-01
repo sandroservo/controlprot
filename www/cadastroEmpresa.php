@@ -16,47 +16,48 @@ if (document.cadastro.empresa.value==""){
     alert("Digite um Nome")
     return false
 }
-if (document.cadastro.cnpj==""){
+if (document.cadastro.cnpj.value==""){
     document.cadastro.cnpj.focus()
     alert("Digite um CNPJ")
     return false
 }
-if (document.cadastro.dddTelefone==""){
+if (document.cadastro.dddTelefone.value==""){
     document.cadastro.dddTelefone.focus()
     alert("Digite DDD")
     return false
 }
-if (document.cadastro.telefone==""){
+if (document.cadastro.telefone.value==""){
     document.cadastro.telefone.focus()
     alert("Digite um Telefone")
     return false
 }
-if (document.cadastro.cep==""){
+if (document.cadastro.cep.value==""){
     document.cadastro.cep.focus()
     alert("Digite um CEP")
     return false
 }
-if (document.cadastro.logradouro==""){
+if (document.cadastro.logradouro.value==""){
     document.cadastro.logradouro.focus()
     alert("Digite um Logradouro")
     return false
 }
-if (document.cadastro.bairro==""){
+if (document.cadastro.bairro.value==""){
     document.cadastro.bairro.focus()
     alert("Digite um Bairro")
     return false
 }
-if (document.cadastro.numero==""){
-    document.cadastro.numero.focus()
+if (document.cadastro.n.value==""){
+    document.cadastro.n.focus()
     alert("Digite o numero do endereço")
     return false
 }
-
-if (document.cadastro.estado.value=="Selecione"){
-    document.cadastro.estado.focus()
-    alert('Selecione Estado')
+if (document.cadastro.cidade.value==""){
+    document.cadastro.cidade.focus()
+    alert("Digite uma cidade")
     return false
-    }
+}
+
+
 
 
 }
@@ -75,17 +76,17 @@ function formulario(){
 echo "<form method=\"POST\" name=\"cadastro\" onSubmit=\"return verificar()\" action=\"cadastroEmpresa.php\">
 <table border=\"0\" align=center>
 <tr>
-  <td class=\"descCampo\" ><label>Empresa:</label></td>
+  <td class=\"descCampo\" >Empresa:</td>
   <td><input type=\"text\" maxlength=\"45\" size=\"50\" name=\"empresa\"></td>
 </tr>
 <tr>
-  <td class=\"descCampo\" ><label>CNPJ:</label></td>
+  <td class=\"descCampo\" >CNPJ:</td>
   <td><input type=\"text\" value=\"\" maxlength=\"14\" size=\"50\" name=\"cnpj\"></td>
 </tr>
 <tr>
   <td class=\"descCampo\" ><label>DDD: </label></td>
   <td><input type=\"text\" value=\"\" maxlength=\"3\" size=\"3\" name=\"dddTelefone\">
-      <label>Telefone:</labels> <input type=\"text\" maxlength=\"8\" size=\"32\" name=\"telefone\">
+      <label>Telefone:</label> <input type=\"text\" maxlength=\"8\" size=\"32\" name=\"telefone\">
     </td>
 </tr>
 <tr>
