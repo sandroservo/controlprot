@@ -1,4 +1,4 @@
-<link href="adm.css" rel="stylesheet" type="text/css" />
+<link href="default.css" rel="stylesheet" type="text/css" />
 <?php
 function formulario(){
     echo "<form name=\"consulta\" action=\"index.php?pagina=Consulta\" method=\"POST\">
@@ -16,7 +16,7 @@ function formulario(){
     <tbody>
     <tr>
 
-        <td class=\"descCampo\" colspan=\"4\" >
+        <td class=\"consulta\" colspan=\"4\" >
             Consulta:
             <input type=\"text\" name=\"campo\" value=\"\" size=\"53\" id=\"campo\">
             <input type=\"submit\" value=\"Consultar\" name=\"consultar\" />
@@ -65,18 +65,21 @@ function consultar($dado,$campo){
             $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
             }
 
-echo "<div><table width=\"650\" border=\"1\" cellspacing=\"0\" bordercolor=\"black\" align=\"center\" class=\"tabItemProtocolo\">
+echo "<div><table width=\"100%\" border=\"1\" cellspacing=\"0\" bordercolor=\"black\" align=\"center\" class=\"tabItemProtocolo\">
 <thead>
 <tr >
-<th >Numero Protocolo:</td>";
+<th >N</th>";
 if($dado=='nomeCliente' || $dado=='cpfCnpjCliente'){
     echo "<th >Nome:</td>";
-    echo "<th >CPF/CNPJ:</td>";
+    echo "<th >CPF/CNPJ</td>";
 }
-echo "<th >Data Envio:</td>
-<th >Status</td>
-<th >Qtd Contratos</td>
-<th colspan=\"2\">Opções</td>
+echo "<th >Envio</th>
+<th>Recepcionado</th>
+<th >Status</th>
+<th >Qtd Enviado</th>
+<th >Qtd Recebido</th>
+<th >Usuário R</th>
+<th colspan=\"3\">Opções</th>
 </tr>";
 
 //inicio do while para mostrar resultado da consulta
@@ -89,35 +92,66 @@ echo "<th >Data Envio:</td>
             echo "<td class=\"resultCampo\">".$linha['cpfCnpjCliente']."</td>";
 
             }
-       
+
+        //verifica se existe algum conteudo, caso não houver apresenta caracter no lugar de nada
         if(!$linha['dataEnvio']==""){
             echo "<td class=\"resultCampo\">".dtPadrao($linha['dataEnvio']);
                 }else{
-                    echo"<td class=\"resultCampo\">Não Enviado</td>";
+                    echo"<td class=\"resultCampo\"> - </td>";
                     }
 
-        echo "</td>
+        //verifica se existe algum conteudo, caso não houver apresenta caracter no lugar de nada
+        if(!$linha['dataRecepcionado']==""){
+            echo "<td class=\"resultCampo\">".dtPadrao($linha['dataRecepcionado'])."</td>";
+                }else{
+                    echo"<td class=\"resultCampo\"> - </td>";
+                    }
+        echo "        
         <td class=\"resultCampo\">".$linha['status']."</td>
         <td class=\"resultCampo\">".$linha['quantidadeContratos']."</td>";
 
+        //verifica se existe algum conteudo, caso não houver apresenta caracter no lugar de nada
+        if(!$linha['quantidadeContratosRecebidos']==""){
+            echo "<td class=\"resultCampo\">".$linha['quantidadeContratosRecebidos']."</td>";
+                }else{
+                    echo"<td class=\"resultCampo\"> - </td>";
+                    }
+
+        //verifica se existe algum conteudo, caso não houver apresenta caracter no lugar de nada
+        if(!$linha['usuarioRecepcionado']==""){
+            echo "<td class=\"resultCampo\">".$linha['usuarioRecepcionado']."</td>";
+                }else{
+                    echo"<td class=\"resultCampo\"> - </td>";
+                    }
+        
+
+        //INICIO - verificações para mostar alterar, excluir, receber
         if ($linha['status']=='S'){
             echo "<td><a href=\"index.php?pagina=Consulta&tipo=alterar&cod=".$linha['codProtocolo']."\">Alterar</td>";
             echo "<td><a href=\"index.php?pagina=Consulta&tipo=excluir&cod=".$linha['codProtocolo']."\">Excluir</td>";
-        }else{
-                echo "<td>Alterar</td>";
-                echo "<td>Excluir</td>";
-                }
-        
+            echo "<td>Receber</td>";
+            }
+        if($linha['status']=='E'){
+          echo "<td>Alterar</td>";
+          echo "<td>Excluir</td>";
+          echo "<td><a href=\"index.php?pagina=Consulta&tipo=receber&cod=".$linha['codProtocolo']."\">Receber</td>";
+          }
+          if($linha['status']=='R'){
+            echo "<td>Alterar</td>";
+            echo "<td>Excluir</td>";
+            echo "<td>Receber</td>";
+            }
+        //FIM - verificações para mostar alterar, excluir, receber
         echo "</tr>";
         }
 
 $total = mysql_num_rows($resultado);
 
 echo"<tr>
-<th colspan=\"8\">Total de Registros:$total</th>
+<th colspan=\"12\">Total de Registros:$total</th>
 </tr>
 </table>
-<p>*Status -> S = Salvo | E = Enviado</p>
+<p>*Status -> S = Salvo | E = Enviado | R = Recepcionado</p>
 </div>";
         
 }
@@ -153,11 +187,14 @@ if (array_key_exists("consultar",$_POST)){
         if ($tipo=="alterar"){
             $_SESSION['codProtocolo'] = $codProtocolo;
             echo "<script>window.location=\"index.php?pagina=Alterar\"</script>";//redireciona para pagina index
-
             }
-            if(!($tipo=='excluir' || array_key_exists("consultar",$_POST) || $tipo=="alterar")){
-                formulario();
+            if ($tipo=="receber"){
+                $_SESSION['codProtocolo'] = $codProtocolo;
+                echo "<script>window.location=\"index.php?pagina=Receber\"</script>";//redireciona para pagina index
                 }
+                if(!($tipo=='excluir' || array_key_exists("consultar",$_POST) || $tipo=="alterar"|| $tipo=="receber")){
+                    formulario();
+                    }
 
 ?>
 

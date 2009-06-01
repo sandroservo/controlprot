@@ -1,4 +1,4 @@
-
+<link href="default.css" rel="stylesheet" type="text/css" />
 <?php
 require 'conectar.php';
 
@@ -9,14 +9,12 @@ function formulario(){
     <thead>
     </thead>
     <tbody>
-    <tr>
-        <td class=\"descCampo\">Data Inicial: </td>
-        <td><input type=\"text\" name=\"dtInicial\" value=\"\" size=\"20\" onKeyUp=\"DigitaData(this)\">></td>
-        <td class=\"descCampo\"d>Data Final</td>
-        <td><input type=\"text\" name=\"dtFinal\" value=\"\" size=\"20\" onKeyUp=\"DigitaData(this)\"></td>
-    </tr>
-    <tr>
-        <td colspan=\"4\" align=\"right\"><input type=\"submit\" value=\"Imprimir\" name=\"imprimir\" /></td>
+    <tr\">
+        <td class=\"consulta\">Data Inicial:
+        <input type=\"text\" name=\"dtInicial\" value=\"\" size=\"20\" onKeyUp=\"DigitaData(this)\">
+         Data Final
+        <input type=\"text\" name=\"dtFinal\" value=\"\" size=\"20\" onKeyUp=\"DigitaData(this)\">
+        <input type=\"submit\" value=\"Imprimir\" name=\"imprimir\" /></td>
     </tr>
     </tbody>
     </table></form>";

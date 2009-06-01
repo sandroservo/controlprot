@@ -15,7 +15,7 @@ Released   : 20080519
 Description: A two-column, fixed-width and lightweight template ideal for 1024x768 resolutions. Suitable for blogs and small websites.
 
     _____________________________________________________________
-    |        SISTEMA PROTOCOLOS PARA DOCUMENTOS FISï¿½COS        |
+    |        SISTEMA PROTOCOLOS PARA DOCUMENTOS FISï¿½COS       |
     |ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï½|
     | Elaborado por: Charles Reitz                              |
     | E-mail/MSN: charles.reitz@gmail.com                       |
@@ -107,20 +107,23 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
             if($pagina=="Alterar"){
             require("alterarProtocolo.php");
                 }
-                if($pagina=="Relatorio"){
-                    deletarProtocolosAbertos();
-                    require("relatorioProtocolo.php");
+                if($pagina=="Receber"){
+                    require("receberProtocolo.php");
                     }
-                    if($pagina=="Administrador"){
+                    if($pagina=="Relatorio"){
                         deletarProtocolosAbertos();
-                        require("indexAdministrador.php");
+                        require("relatorioProtocolo.php");
                         }
-                        if (!($pagina=="Novo" || $pagina=="Consulta"
-                           || $pagina=="Relatorio" || $pagina=="Administrador"
-                           || $pagina=="Alterar")){
-
-                            require ("home.php");
+                        if($pagina=="Administrador"){
                             deletarProtocolosAbertos();
+                            require("indexAdministrador.php");
+                            }
+                            if (!($pagina=="Novo" || $pagina=="Consulta"
+                                || $pagina=="Relatorio" || $pagina=="Administrador"
+                                || $pagina=="Alterar" || $pagina=="Receber")){
+
+                                require ("home.php");
+                                deletarProtocolosAbertos();
                             }
 
 

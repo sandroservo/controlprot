@@ -15,7 +15,7 @@ body {
 	padding: 0;
     background-color:white;
 	font-family: "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
-    text-align:justify;
+text-align:justify;
 }
 
 .msg{
@@ -72,10 +72,11 @@ body {
 }
 
 
- .descCampo, p, label, th{
+p, label, th{
     color:black;
     font-weight:bold;
     font-size:13px;
+    text-align:justify;
     }
 
 
@@ -90,12 +91,30 @@ body {
     color:white;
 }
 
+.descCampo{
+    background-color:silver;
+    font-family:"Trebuchet MS", Georgia, "Times New Roman", Times, serif;
+    font-size:13px;
+    font-weight:bold;
+}
+
 input{
 border-style:solid;
 border-width:1px;
 color:black;
 font-size:13px;
 background:#F0F0F0;
-
-
 }
+
+
+/*############# INICIO CSS RESULTADO DA CONSULTA ################*/
+.tabConsulta{
+    border:1px;
+    border-style:solid;
+    border-color:black;
+    
+    width:600px;
+}
+
+/*______________FIM CSS RESULTADO DA SONCULTA______________________*/
+

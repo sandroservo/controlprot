@@ -15,14 +15,11 @@ echo "
 </tr>
 <tr>
   <td class=\"descCampo\" ><label for=\"obs\">Obs:</label></td>
-  <td colspan=4><input type=\"text\" maxlength=\"300\" size=\"82\" name=\"obs\" id=\"obs\"></td>
-</tr>
-<tr>
-   <td colspan=4 align=\"right\"><input type=\"submit\" value=\"Incluir\" name=\"incluir\" >
+  <td colspan=4><input type=\"text\" maxlength=\"300\" size=\"72\" name=\"obs\" id=\"obs\">
+    <input type=\"submit\" value=\"Incluir\" name=\"incluir\" ></td>
 </tr>
 </table>
-</form>
-<br>";
+</form>";
 itemFormulario();
 
 }

@@ -23,6 +23,7 @@ p, ul, ol {
 	margin: 0 0 2em 0;
 	text-align: justify;
 	line-height: 26px;
+   
 }
 
 a:link, a:visited, a:active {
@@ -146,6 +147,13 @@ th {
 
 }
 
+.consulta{
+    background-color:silver;
+    font-family:"Trebuchet MS", Georgia, "Times New Roman", Times, serif;
+    font-size:13px;
+    font-weight:bold;
+}
+
 
  .descCampoConsulta{
     color:white;
@@ -154,7 +162,6 @@ th {
 }
 
 .resultCampo{
-    
     color:white;
 }
 
