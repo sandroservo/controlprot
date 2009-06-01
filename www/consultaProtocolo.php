@@ -1,7 +1,13 @@
-<link href="default.css" rel="stylesheet" type="text/css" />
+
 <?php
+if(!isset($_SESSION["loginIndex"])){
+echo "<script language=\"JavaScript\">
+document.location=\"index.php\";
+</script>";
+exit;}
+echo "<link href=\"default.css\" rel=\"stylesheet\" type=\"text/css\" />";
 function formulario(){
-    echo "<form name=\"consulta\" action=\"index.php?pagina=Consulta\" method=\"POST\">
+    echo "<form name=\"consulta\" action=\"index2.php?pagina=Consulta\" method=\"POST\">
     <table border=\"0\" align=\"center\">
     <thead>
     <tr>
@@ -127,14 +133,14 @@ echo "<th >Envio</th>
 
         //INICIO - verificações para mostar alterar, excluir, receber
         if ($linha['status']=='S'){
-            echo "<td><a href=\"index.php?pagina=Consulta&tipo=alterar&cod=".$linha['codProtocolo']."\">Alterar</td>";
-            echo "<td><a href=\"index.php?pagina=Consulta&tipo=excluir&cod=".$linha['codProtocolo']."\">Excluir</td>";
+            echo "<td><a href=\"index2.php?pagina=Consulta&tipo=alterar&cod=".$linha['codProtocolo']."\">Alterar</td>";
+            echo "<td><a href=\"index2.php?pagina=Consulta&tipo=excluir&cod=".$linha['codProtocolo']."\">Excluir</td>";
             echo "<td>Receber</td>";
             }
         if($linha['status']=='E'){
           echo "<td>Alterar</td>";
           echo "<td>Excluir</td>";
-          echo "<td><a href=\"index.php?pagina=Consulta&tipo=receber&cod=".$linha['codProtocolo']."\">Receber</td>";
+          echo "<td><a href=\"index2.php?pagina=Consulta&tipo=receber&cod=".$linha['codProtocolo']."\">Receber</td>";
           }
           if($linha['status']=='R'){
             echo "<td>Alterar</td>";
@@ -186,11 +192,11 @@ if (array_key_exists("consultar",$_POST)){
         }
         if ($tipo=="alterar"){
             $_SESSION['codProtocolo'] = $codProtocolo;
-            echo "<script>window.location=\"index.php?pagina=Alterar\"</script>";//redireciona para pagina index
+            echo "<script>window.location=\"index2.php?pagina=Alterar\"</script>";//redireciona para pagina index
             }
             if ($tipo=="receber"){
                 $_SESSION['codProtocolo'] = $codProtocolo;
-                echo "<script>window.location=\"index.php?pagina=Receber\"</script>";//redireciona para pagina index
+                echo "<script>window.location=\"index2.php?pagina=Receber\"</script>";//redireciona para pagina index
                 }
                 if(!($tipo=='excluir' || array_key_exists("consultar",$_POST) || $tipo=="alterar"|| $tipo=="receber")){
                     formulario();

@@ -1,10 +1,17 @@
-<link href="default.css" rel="stylesheet" type="text/css" />
+
 <?php
+if(!isset($_SESSION["loginIndex"])){
+echo "<script language=\"JavaScript\">
+document.location=\"index.php\";
+</script>";
+exit;}
+
+echo "<link href=\"default.css\" rel=\"stylesheet\" type=\"text/css\" />";
 require 'conectar.php';
 
 
 function formulario(){
-    echo "<form name=\"consulta\" action=\"index.php?pagina=Relatorio\" method=\"POST\">
+    echo "<form name=\"consulta\" action=\"index2.php?pagina=Relatorio\" method=\"POST\">
     <table border=\"0\" align=\"center\">
     <thead>
     </thead>

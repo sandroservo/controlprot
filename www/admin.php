@@ -1,11 +1,10 @@
-
 <?
 session_start();
-//if(!isset($_SESSION["login"]) or (!$_SESSION["nivel"]==1)){
-//echo "<script language=\"JavaScript\">
-//document.location=\"login.php\";
-//</script>";
-//exit;}
+if(!isset($_SESSION["loginIndex"])){
+echo "<script language=\"JavaScript\">
+document.location=\"index.php\";
+</script>";
+exit;}
 
 
 echo "
@@ -15,7 +14,7 @@ echo "
 <li><a href=cadastroEmpresa.php target=centro>Cadastro Empresa</a></li>
 <li><a href=consultaUsuario.php target=centro>Consulta Usuários</a></li>
 <li><a href=consultaEmpresa.php target=centro>Consulta Empresa</a></li>
-<li><a href=\"#\" onClick=\"trocar()\">Fechar</a></li>
+<li><a href=\"brancoIframe.php\" target=centro onClick=\"trocar()\">Fechar</a></li>
 
 
 </ul>

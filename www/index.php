@@ -1,154 +1,129 @@
-<? session_start();?>
-
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--
-
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-
-Title      : Popular
-Version    : 1.0
-Released   : 20080519
-Description: A two-column, fixed-width and lightweight template ideal for 1024x768 resolutions. Suitable for blogs and small websites.
-
-    _____________________________________________________________
-    |        SISTEMA PROTOCOLOS PARA DOCUMENTOS FISï¿½COS       |
-    |ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï½|
-    | Elaborado por: Charles Reitz                              |
-    | E-mail/MSN: charles.reitz@gmail.com                       |
-    | -> Disciplina de Analise e Desenvolvimento de Sistemas    |
-    | -> Prof. MEng. Sigmundo Preissler Jr.                     |
-    | -> UNERJ - Jaraguï¿½ do Sul - SC - www.unerj.br           |
-    |___________________________________________________________|
-    |                       Etapas                              |
-    |ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½|
-    |1 - Documento                                      [75%]   |
-    |2 - Modelo Banco Dados                             [100%]  |
-    |3 - Desenvolvimento                                [85% ]  |
-    |4 - Testes/Implementaï¿½ï¿½o/Documentaï¿½ï¿½o      [0%  ]  |
-    |5 - Banca                                          [0%  ]  |
-    |___________________________________________________________|
-
--->
-
-
-
+<?php session_start();?>
 <html>
-<head>
-<title>Controlprot - Sistema de Controle de Protocolos</title>
-<link href="default.css" rel="stylesheet" type="text/css" />
-<script language="JavaScript" src="util.js"></script>
-</head>
-<body >
-<!-- inicio menu -->
-<div id="logo">
+  <head>
+    <title>Login - Controlprot</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <link rel=stylesheet href=default.css type=text/css>
+  </head>
+  <body>
+<?php
+require('conectar.php');
+function anti_injection($sql){
+  $sql = preg_replace(sql_regcase("/(from|select|insert|name|like|delete|where|drop table|show tables|#|\*|--|\\\\)/"),"",$sql);
+  $sql = trim($sql);
+  $sql = strip_tags($sql);
+  $sql = addslashes($sql);
+return $sql;
+}
 
-</div>
+function formulario(){
+echo "<div class=\"fundoLogin\"><center><div class=index>";
+echo "<form method=\"POST\" action=index.php>
 
-<div id="header">
-	<div id="menu">
-		<ul>
-            <li><a href="index.php">Home</a><li>
-            <li><a href="index.php?pagina=Novo">Novo Protocolo</a></li>
-			<li><a href="index.php?pagina=Consulta">Consultar Protocolo</a></li>
-			<li><a href="index.php?pagina=Relatorio">Relatório de Protocolos</a></li>
-          	<li><a href="#" onClick="trocar(1)">Administrador</a>
-                
-            <li class="last"><a href="#">Sair</a></li>
-		</ul>
-	</div>
-</div>
-<!-- fim menu -->
+<table border=\"0\">
+<thead>
+<tr>
+<td class=\"descCampo\">Usuario:</td>
+<td> <input name=login size=20></td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class=\"descCampo\">Senha:</td>
+<td><input name=senha type=\"password\" size=20></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
-<!-- inicio pagina -->
-<div id="page">
-  <p>
-    <?php
-    require "conectar.php";
-    require 'util.php';
-    //verificar se existe protocolos com status 'A' e deleta
-    function deletarProtocolosAbertos(){
-    $sql5 = "select codProtocolo,status from protocolo where status = 'A'";
-    $resultado5 = mysql_query($sql5) or die ("erro".mysql_error());
+<input type=submit name=enviado value=Login>
+</form></div></center></div>";
+}
 
-        /*faz um while, enquanto existir itens dentro do resultado5 ele 
-        vai executar o sql de deleção, para não sobrecarregado o banco com
-         protocolos com status somente A de aberto - Fato existir uma FK primeiramente
-         * ele ira deletar os itens após isso e rá deletar todos os protocolos
-         * com status A
-         */
-        while ($linha = mysql_fetch_array($resultado5)){
-            $sql = "DELETE FROM itemProtocolo WHERE codProtocolo='".$linha['codProtocolo']."';";
-            $resultadosql = mysql_query($sql) or die ("erro sql deletarItemProtocolo".mysql_error());
-        }
-    $sql = "DELETE FROM protocolo WHERE status = 'A'";
-    $resultadosql = mysql_query($sql) or die ("erro sql deletarItemProtocolo".mysql_error());
+function novaSenha(){
+echo "<div class=\"fundoTransparente\"><center><div class=trocaSenha>";
+echo "<h3>Nova Senha</h3><form method=\"POST\" action=index.php>
 
-    /*desregistra sessão codProtocolo pois quando entrar na tela de cadastroProtocolo
-     * ele irá verificar se existe uma sessão com o nome, caso estiver ele não grava
-     * o cabecalho no banco, ocasionando um erro de FK ao tentar inserir um tim*/
-    unset ($_SESSION['codProtocolo']);
-    }
-    //fim função deletarProtocolosAbertos
+<table border=\"0\">
+<thead>
+<tr>
+<td class=\"descCampo\"></td>
+<td> <input name=login size=20></td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class=\"descCampo\">Senha:</td>
+<td><input name=senha type=\"password\" size=20></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
-//inicia verificações para abrir arquivos
-    $pagina=$_GET['pagina'];
-    
-    if ($pagina=="Novo"){
-        require ("cadastroProtocolo.php");
-        }
-        if($pagina=="Consulta"){
-            deletarProtocolosAbertos();
-            require("consultaProtocolo.php");
-            }
-            if($pagina=="Alterar"){
-            require("alterarProtocolo.php");
+<input type=submit name=enviado value=Login>
+</form></div></center></div>";
+
+}
+
+
+function verifica(){
+$login = anti_injection($_POST["login"]);
+$senha = md5(anti_injection($_POST["senha"]).dificilsenha2009);
+if ((!$login) || (!$senha)){
+echo "<center><div class=\"msgR\">Senha ou Login em branco<br>";
+echo "<div class=\"linkLogin\"><a href=\"index.php\" >Tentar novamente</a></div></div></center>";
+}else{
+$sql = "select dataUltimoLogin,nivel,codEmpresa,status,login,senha from usuarios where login='$login' and senha='$senha'";
+$resultado = mysql_query($sql);
+$linha = mysql_fetch_array($resultado);
+$total = @mysql_num_rows($resultado);
+if (!$total){
+  echo "<script language=\"JavaScript\">
+    alert(\"Usuário ou senha inválida.\");
+    document.location=\"index.php\";
+</script>";
+    }else{
+
+        $_SESSION['nivelIndex'] = $linha['nivel'];
+        $_SESSION['statusIndex'] = $linha['status'];
+        $_SESSION['codEmpresaIndex'] = $linha['codEmpresa'];
+        $_SESSION['loginIndex'] = $linha['login'];
+        if ($_SESSION['statusIndex']=='A'){
+            if ($linha['dataUltimoLogin']==""){
+                formulario();
+                novaSenha();
+
+            }else{
+                novaSenha();
+                //echo "<script language=\"JavaScript\">
+                    //document.location=\"index2.php\";
+                    //</script>";
+                 }
+            }else{
+                echo "<script language=\"JavaScript\">
+                alert(\"Este usuário está desativado, contate o administrador.\");
+                document.location=\"index.php\";
+                </script>";
                 }
-                if($pagina=="Receber"){
-                    require("receberProtocolo.php");
-                    }
-                    if($pagina=="Relatorio"){
-                        deletarProtocolosAbertos();
-                        require("relatorioProtocolo.php");
-                        }
-                        if($pagina=="Administrador"){
-                            deletarProtocolosAbertos();
-                            require("indexAdministrador.php");
-                            }
-                            if (!($pagina=="Novo" || $pagina=="Consulta"
-                                || $pagina=="Relatorio" || $pagina=="Administrador"
-                                || $pagina=="Alterar" || $pagina=="Receber")){
+        }
+}
+}
 
-                                require ("home.php");
-                                deletarProtocolosAbertos();
-                            }
-
-
-
-
-
-
-
+if (!array_key_exists("enviado",$_POST))
+{
+formulario();
+}
+else {
+verifica();
+}
 
 ?>
-</p>
-</div>
-<!-- fim pagina -->
-
-<!--inicio rodape-->
-<div id="footer">
-	<p id="legal">Desenvolvido por Charles Reitz - 2009</p>
-</div>
-
-<!--div ADM | VEM POR PADRÃO INVISIVEL-->
-
-<div id="central">
-<?php include 'admin.php'; ?>
-</div>
-
-<!-- fim rodape -->
-</body>
+  </body>
 </html>
+
