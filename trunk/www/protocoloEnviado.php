@@ -34,7 +34,7 @@ require 'util.php';
         $linha_empresa = mysql_fetch_array($resultado_empresa);
      
 
-echo "<h2>Controlo de Contratos Enviados</h2>";
+echo "<h2>Protocolo de Contratos Enviados</h2>";
 
 echo "<table border=\"1\" width=\"800\" cellspacing=\"0\" bordercolor=\"black\">
     <thead>

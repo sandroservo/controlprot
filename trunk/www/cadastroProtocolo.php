@@ -8,7 +8,7 @@ exit;}
 echo "<body onload=\"document.cabecalhoFormulario.cpfCnpjCliente.focus()\">";
 //inicio formulario
 function formulario(){
-
+echo "<h4>Protocolo Nº: ".$_SESSION['codProtocolo']."</h4>";
 echo "
 <form method=\"POST\" name=\"cabecalhoFormulario\" action=\"index2.php?pagina=Novo\">
 <table border=\"0\" align=center>
@@ -214,7 +214,7 @@ function enviarProtocolo(){
             echo "<div class=\"msgG\">Protocolo Enviado<br>
             <b>Protocolo: ".$_SESSION['codProtocolo']."</b>
             <br><br>
-            <label><a class=\"linkImpressao\" href=\"protocoloEnviado.php\" target=\"blank\">Imprimir Protocolo</a></label>
+            <label><div class=\"linkImpressao\" ><a href=\"protocoloEnviado.php\" target=\"blank\">Imprimir Protocolo</a></div></label>
             </div>";
             $_SESSION['codProtocoloImpressao']=$_SESSION['codProtocolo'];//envia para a var sessao imprimir cod
             $_SESSION['codProtocolo']="";//zera sessa codprotocolo para não abrir o mesmo protocolo depois de enviado
