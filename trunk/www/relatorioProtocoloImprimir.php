@@ -19,12 +19,18 @@ exit;}
 require 'conectar.php';
 require 'util.php';
 
-
-        $sql = "select codProtocolo,dataCriacao,status,quantidadeContratos,dataEnvio,codUsuario from protocolo
+if ($_SESSION['nivelIndex']=='U'){
+        $sql = "select codProtocolo,dataCriacao,status,quantidadeContratos,dataEnvio,codUsuario,codEmpresa from protocolo
+        where dataEnvio BETWEEN '".$_SESSION['dtInicial']."' and '".$_SESSION['dtFinal']."'
+        and codEmpresa=".$_SESSION['codEmpresaIndex'].";";
+        $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
+        $resultado_w = mysql_query($sql) or die ("erro sql".mysql_error());
+        }else{
+            $sql = "select codProtocolo,dataCriacao,status,quantidadeContratos,dataEnvio,codUsuario,codEmpresa from protocolo
         where dataEnvio BETWEEN '".$_SESSION['dtInicial']."' and '".$_SESSION['dtFinal']."';";
         $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
         $resultado_w = mysql_query($sql) or die ("erro sql".mysql_error());
-
+        }
 
 
 

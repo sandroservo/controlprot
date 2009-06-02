@@ -88,16 +88,5 @@ function trocar(tipo){
 }
 //_____________________________________________________________
 
-//*********FUNCÇÃO PARA APARECER E DESAPARECER DIV TROCAR SENHA************
-function trocar(tipo){
-		var Layer = document.getElementById("fundoTransparente");
-
-        if (tipo == 1){
-			Layer.style.visibility = 'visible';
-		} else {
-			Layer.style.visibility = 'hidden';
-		}
-}
-//_____________________________________________________________
 
 

@@ -6,6 +6,5 @@ document.location=\"index.php\";
 </script>";
 exit;}
 
-echo "<h1>Controlprot</h1>";
+echo "<h4>Olá, ".$_SESSION['nomeIndex']."</h4>";?>
 
-?>

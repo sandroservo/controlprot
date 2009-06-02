@@ -84,7 +84,7 @@ function gravar(){
              }
 
 
-            $sql = "UPDATE protocolo SET quantidadeContratosRecebidos='$cont', status='R', dataRecepcionado=now(),usuarioRecepcionado='1'
+            $sql = "UPDATE protocolo SET quantidadeContratosRecebidos='$cont', status='R', dataRecepcionado=now(),usuarioRecepcionado='".$_SESSION['codUsuarioIndex']."'
             WHERE codProtocolo = '".$_SESSION['codProtocolo']."' ;";
             $resultadosql = mysql_query($sql) or die ("erro sql salvarFormulario".mysql_error());
             echo "<div class=\"msgG\">Protocolo Recepcionado<br>

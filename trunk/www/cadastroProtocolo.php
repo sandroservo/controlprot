@@ -100,7 +100,7 @@ function gravarCabecalho(){
         $codProtocolo = $dado2['codProtocolo']+1;//acrescenta + 1 no codigo que buscou do banco
         $_SESSION['codProtocolo'] = $codProtocolo;
 
-$sql = "INSERT INTO protocolo (codProtocolo,dataCriacao,status,codUsuario,codEmpresa,quantidadeContratos) VALUES ('$codProtocolo',now(),'A','1','1','0')";
+$sql = "INSERT INTO protocolo (codProtocolo,dataCriacao,status,codUsuario,codEmpresa,quantidadeContratos) VALUES ('$codProtocolo',now(),'A','".$_SESSION['codUsuarioIndex']."','".$_SESSION['codEmpresaIndex']."','0')";
         $resultadosql = mysql_query($sql) or die ("erro sql GravarCabecalho 2".mysql_error());
 }
 
@@ -208,7 +208,7 @@ function enviarProtocolo(){
         echo "<div class=\"msgR\">Não existe itens para serem enviados</div>";
         formulario();
          }else{
-            $sql = "UPDATE protocolo SET status='E',quantidadeContratos='".$_SESSION['total']."', dataEnvio=now(),codUsuario='1',codEmpresa='1'
+            $sql = "UPDATE protocolo SET status='E',quantidadeContratos='".$_SESSION['total']."', dataEnvio=now(),codUsuario='".$_SESSION['codUsuarioIndex']."',codEmpresa='".$_SESSION['codEmpresaIndex']."'
             WHERE codProtocolo = '".$_SESSION['codProtocolo']."' ;";
             $resultadosql = mysql_query($sql) or die ("erro sql salvarFormulario".mysql_error());
             echo "<div class=\"msgG\">Protocolo Enviado<br>
