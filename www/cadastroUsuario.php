@@ -107,6 +107,61 @@ echo "</select>
 }
 //fim formulario
 
+function novaSenha(){
+echo "<div class=\"fundoTransparente\"><center><div class=trocaSenha>";
+echo "<h3>Nova Senha</h3><form method=\"POST\" action=index.php>
+
+<table border=\"0\">
+<thead>
+<tr>
+<td class=\"descCampo\">Nova Senha:</td>
+<td><input name=senha1 type=\"password\" size=20></td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class=\"descCampo\">Confirma Nova Senha:</td>
+<td><input name=senha2 type=\"password\" size=20></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<input type=submit name=enviadoSenha value=Salvar>
+</form></div></center></div>";
+
+}
+
+
+function gravaNovaSenha(){
+
+$senha1 = $_POST['senha1'];
+$senha2 = $_POST['senha2'];
+
+if (($senha1==$senha2) && !($senha1=="" || $senha2=="")){
+
+$senha = md5($senha1.dificilsenha2009);
+$sql = "UPDATE usuarios SET senha='$senha',dataUltimoLogin=now() where login='".$_SESSION['loginIndex']."'";
+$resultado = mysql_query($sql);
+
+
+
+echo "<script language=\"JavaScript\">
+     document.location=\"index2.php\";
+    </script>";
+
+}
+if ((!($senha1==$senha2)) || ($senha1=="" || $senha2=="")){
+     echo "<script language=\"JavaScript\">
+        alert(\"Senhas NÃO são iguais ou estão em BRANCO\");
+        </script>";
+        novaSenha();
+        }
+}
+
 //inicio gravar - insere campos por sql no banco de dados
 function gravar(){
 

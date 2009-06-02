@@ -63,7 +63,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 			<li><a href="index2.php?pagina=Relatorio">Relatório de Protocolos</a></li>
           	<?
             if ($_SESSION['nivelIndex']=='A'){
-                echo "<li><a href=\"#\" onClick=\"trocar(1)\">Administrador</a>";
+                echo "<li><a href=\"#\" onClick=\"trocar(1)\">Administrador</a></li>";
                 }
             ?>
                 
@@ -126,10 +126,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
                         deletarProtocolosAbertos();
                         require("relatorioProtocolo.php");
                         }
-                        if($pagina=="Administrador"){
-                            deletarProtocolosAbertos();
-                            require("indexAdministrador.php");
-                            }
+
                             if (!($pagina=="Novo" || $pagina=="Consulta"
                                 || $pagina=="Relatorio" || $pagina=="Administrador"
                                 || $pagina=="Alterar" || $pagina=="Receber")){
@@ -154,8 +151,6 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 <div id="footer">
 	<p id="legal"><b>Controlprot - 2009</b></p>
 </div>
-
-<!--div ADM | VEM POR PADRÃO INVISIVEL-->
 
 <div id="central">
 <?php include 'admin.php'; ?>

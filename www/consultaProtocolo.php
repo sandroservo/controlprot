@@ -37,11 +37,14 @@ function formulario(){
 
 function consultar($dado,$campo){
 
+    //se for usuario normal entra nesse if caso contrario executa sql como ADM
+    if ($_SESSION['nivelIndex']=='U'){
     if ($dado=='todos'){
         $sql = "select * from itemProtocolo A
                 join
                 protocolo B
                 on A.codProtocolo = B.codProtocolo
+                where B.codEmpresa=".$_SESSION['codEmpresaIndex']."
                 group by A.codProtocolo;";
         $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
         }
@@ -50,7 +53,7 @@ function consultar($dado,$campo){
                 join
                 protocolo B
                 on A.codProtocolo = B.codProtocolo
-                where A.nomeCliente like '%$campo%'"; 
+                where A.nomeCliente like '%$campo%' and B.codEmpresa=".$_SESSION['codEmpresaIndex']."";
         $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
         }
         if ($dado=='codProtocolo'){
@@ -58,7 +61,7 @@ function consultar($dado,$campo){
                 join
                 protocolo B
                 on A.codProtocolo = B.codProtocolo
-                where A.$dado ='$campo'
+                where A.$dado ='$campo and B.codEmpresa=".$_SESSION['codEmpresaIndex']."'
                 group by A.codProtocolo;";
         $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
         }
@@ -67,10 +70,46 @@ function consultar($dado,$campo){
                 join
                 protocolo B
                 on A.codProtocolo = B.codProtocolo
-                where A.$dado = '$campo'";
+                where A.$dado = '$campo' and B.codEmpresa=".$_SESSION['codEmpresaIndex']."";
             $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
             }
-
+            //FIM IF USUARIO
+        }else{
+            //INICIO IF ADMINISTRADOR
+            if ($dado=='todos'){
+            $sql = "select * from itemProtocolo A
+                join
+                protocolo B
+                on A.codProtocolo = B.codProtocolo
+                group by A.codProtocolo;";
+                $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
+            }
+            if ($dado=='nome'){
+            $sql = "select * from itemProtocolo A
+                join
+                protocolo B
+                on A.codProtocolo = B.codProtocolo
+                where A.nomeCliente like '%$campo%'";
+                $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
+            }
+            if ($dado=='codProtocolo'){
+                $sql = "select * from itemProtocolo A
+                join
+                protocolo B
+                on A.codProtocolo = B.codProtocolo
+                where A.$dado ='$campo'
+                group by A.codProtocolo;";
+                $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
+            }
+            if (!($dado=='todos' || $dado=='nome' || $dado=='codProtocolo')){
+                $sql = "select * from itemProtocolo A
+                join
+                protocolo B
+                on A.codProtocolo = B.codProtocolo
+                where A.$dado = '$campo'";
+                $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
+            }
+        }
 echo "<div><table width=\"100%\" border=\"1\" cellspacing=\"0\" bordercolor=\"black\" align=\"center\" class=\"tabItemProtocolo\">
 <thead>
 <tr >
@@ -135,17 +174,17 @@ echo "<th >Envio</th>
         if ($linha['status']=='S'){
             echo "<td><a href=\"index2.php?pagina=Consulta&tipo=alterar&cod=".$linha['codProtocolo']."\">Alterar</td>";
             echo "<td><a href=\"index2.php?pagina=Consulta&tipo=excluir&cod=".$linha['codProtocolo']."\">Excluir</td>";
-            echo "<td>Receber</td>";
+            if ($_SESSION['nivelIndex']=='A'){echo "<td>Receber</td>";}
             }
         if($linha['status']=='E'){
           echo "<td>Alterar</td>";
           echo "<td>Excluir</td>";
-          echo "<td><a href=\"index2.php?pagina=Consulta&tipo=receber&cod=".$linha['codProtocolo']."\">Receber</td>";
+          if ($_SESSION['nivelIndex']=='A'){echo "<td><a href=\"index2.php?pagina=Consulta&tipo=receber&cod=".$linha['codProtocolo']."\">Receber</td>";}
           }
           if($linha['status']=='R'){
             echo "<td>Alterar</td>";
             echo "<td>Excluir</td>";
-            echo "<td>Receber</td>";
+            if ($_SESSION['nivelIndex']=='A'){echo "<td>Receber</td>";}
             }
         //FIM - verificações para mostar alterar, excluir, receber
         echo "</tr>";
