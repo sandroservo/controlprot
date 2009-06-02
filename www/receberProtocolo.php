@@ -80,7 +80,6 @@ function gravar(){
              $sql = "UPDATE itemProtocolo SET recebido='S' where cpfCnpjCliente=$receber and codProtocolo=".$_SESSION['codProtocolo']."";
              $resultadosql = mysql_query($sql) or die ("erro sql receber".mysql_error());
              $cont ++;
-             echo $cont;
              }
 
 

@@ -8,7 +8,7 @@ exit;}
 
 //inicio formulario
 function formulario(){
-
+echo "<h4>Protocolo Nº: ".$_SESSION['codProtocolo']."</h4>";
 echo "
 <form method=\"POST\" name=\"cabecalhoFormulario\" action=\"index2.php?pagina=Alterar\">
 <table border=\"0\" align=center>
@@ -181,20 +181,20 @@ unset ($_SESSION['codProtocolo']);
 
 function enviarProtocolo(){
 
-    $sql = "Select codProtocolo from itemprotocolo where codProtocolo='".$_SESSION['codProtocolo']."';";
+    $sql = "Select codProtocolo from itemProtocolo where codProtocolo='".$_SESSION['codProtocolo']."';";
     $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
         $total = mysql_num_rows($resultado);
     if ($total<=0){
         echo "<div class=\"msgR\">Não existe itens para serem enviados</div>";
         formulario();
          }else{
-            $sql = "UPDATE protocolo SET status='E',quantidadeContratos='".$_SESSION['total']."', dataEnvio=now(),codUsuario='1',codEmpresa='1'
-            WHERE codProtocolo = '".$_SESSION['codProtocolo']."' ;";
+            $sql = "UPDATE protocolo SET status='E',quantidadeContratos='".$_SESSION['total']."', dataEnvio=now(),codUsuario=".$_SESSION['codUsuario'].",codEmpresa='".$_SESSION['codEmpresaIndex']."'
+            WHERE codProtocolo = '".$_SESSION['codProtocolo']."';";
             $resultadosql = mysql_query($sql) or die ("erro sql salvarFormulario".mysql_error());
             echo "<div class=\"msgG\">Protocolo Enviado<br>
             <b>Protocolo: ".$_SESSION['codProtocolo']."</b>
             <br><br>
-            <a class=\"linkImpressao\" href=\"protocoloEnviado.php\" target=\"blank\">Imprimir Protocolo</a>
+            <div class=\"linkImpressao\"><a class=\"linkImpressao\" href=\"protocoloEnviado.php\" target=\"blank\">Imprimir Protocolo</a></div>
             </div>";
             $_SESSION['codProtocoloImpressao']=$_SESSION['codProtocolo'];//envia para a var sessao imprimir cod
             $_SESSION['codProtocolo']="";//zera sessa codprotocolo para não abrir o mesmo protocolo depois de enviado

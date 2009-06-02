@@ -58,7 +58,7 @@ body {
 
 }
 
-.linkImpressao a:link, .linkImpressao a:visited{
+.linkImpressao a:link, .linkImpressao a:visited, .linkImpressao a:active{
     font-size:13px;
     color:green;
     text-decoration:underline;

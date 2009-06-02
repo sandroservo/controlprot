@@ -115,11 +115,10 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
             require("consultaProtocolo.php");
             }
             if($pagina=="Alterar"){
-            deletarProtocolosAbertos();
+
             require("alterarProtocolo.php");
                 }
                 if($pagina=="Receber"){
-                    deletarProtocolosAbertos();
                     require("receberProtocolo.php");
                     }
                     if($pagina=="Relatorio"){
