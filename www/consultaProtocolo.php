@@ -196,7 +196,7 @@ echo"<tr>
 <th colspan=\"12\">Total de Registros:$total</th>
 </tr>
 </table>
-<p>*Status -> S = Salvo | E = Enviado | R = Recepcionado</p>
+<h5>*Status -> S = Salvo | E = Enviado | R = Recepcionado</h5>
 </div>";
         
 }
@@ -226,8 +226,8 @@ if (array_key_exists("consultar",$_POST)){
     consultar($dado,$campo);
     }
     if ($tipo=="excluir"){
-        deletarProtocolo($codProtocolo);
         formulario();
+        deletarProtocolo($codProtocolo);
         }
         if ($tipo=="alterar"){
             $_SESSION['codProtocolo'] = $codProtocolo;
