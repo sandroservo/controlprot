@@ -10,24 +10,25 @@ exit;}
 function formulario(){
 echo "<h4>Protocolo Nº: ".$_SESSION['codProtocolo']."</h4>";
 echo "
-<form method=\"POST\" name=\"cabecalhoFormulario\" action=\"index2.php?pagina=Alterar\">
+<form method=\"POST\" name=\"cabecalhoFormulario\" action=\"index2.php?pagina=Novo\">
 <table border=\"0\" align=center>
 <tr>
-  <td class=\"descCampo\" ><label for=\"cpfCnpjCliente\">Cpf/Cnpj:</label></td>
-  <td><input type=\"text\" maxlength=\"14\" size=\"23\" name=\"cpfCnpjCliente\" id=\"cpfCnpjCliente\"></td>
+  <td class=\"descCampo\" ><label for=\"cpfCnpjCliente\1\">Cpf/Cnpj:</label></td>
+  <td><input type=\"text\" value=\"\" maxlength=\"14\" size=\"23\" name=\"cpfCnpjCliente\" id=\"cpfCnpjCliente\"></td>
   <td class=\"descCampo\" ><label for=\"nome\">Nome:</label></td>
   <td><input type=\"text\" maxlength=\"40\" size=\"43\" name=\"nome\" id=\"nome\"></td>
 </tr>
 <tr>
   <td class=\"descCampo\" ><label for=\"obs\">Obs:</label></td>
-  <td colspan=4><input type=\"text\" maxlength=\"300\" size=\"82\" name=\"obs\" id=\"obs\"></td>
+  <td colspan=4><input type=\"text\" value=\"\" name=\"obs\" size=\"80\" maxlength=\"299\"></td>
 </tr>
 <tr>
-   <td colspan=4 align=\"right\"><input type=\"submit\" value=\"Incluir\" name=\"incluir\" >
+    <td colspan=\"4\"><center><div class=\"green2\"><input type=\"submit\" value=\"Incluir\" name=\"incluir\" ></div></center></td>
 </tr>
 </table>
-</form>
-<br>";
+</form>";
+echo "<div class=\"msg\"><b>Um protocolo pode contar mais de um contrato, portanto apenas clique em ENVIAR quando todos os contratos
+estiverem incluídos<br></b></div>";
 itemFormulario();
 
 }
@@ -80,9 +81,9 @@ echo "
 <table border=\"0\" align=\"center\">
 <thead>
     <tr>
-        <td align=\"right\"><input type=\"submit\" value=\"Deletar\" name=\"deletar\" >
-        <td align=\"right\"><input type=\"submit\" value=\"Gravar\" name=\"gravar\" >
-        <td align=\"right\"><input type=\"submit\" value=\"Enviar\" name=\"enviar\" >
+        <td class=\"red\"align=\"right\"><input type=\"submit\" value=\"Deletar\" name=\"deletar\" >
+        <td class=\"orange\"align=\"right\"><input type=\"submit\" value=\"Gravar\" name=\"gravar\" >
+        <td class=\"green\"align=\"right\"><input type=\"submit\" value=\"Enviar\" name=\"enviar\" >
     </tr>
 </thead>
 <tbody>
@@ -163,7 +164,7 @@ function gravarItemProtocoloNovo(){
 }
 
 function salvarProtocolo(){
-    $sql = "Select codProtocolo from itemprotocolo where codProtocolo='".$_SESSION['codProtocolo']."';";
+    $sql = "Select codProtocolo from itemProtocolo where codProtocolo='".$_SESSION['codProtocolo']."';";
     $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
     $total = mysql_num_rows($resultado);
 
