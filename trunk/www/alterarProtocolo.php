@@ -189,9 +189,10 @@ function enviarProtocolo(){
         echo "<div class=\"msgR\">Não existe itens para serem enviados</div>";
         formulario();
          }else{
-            $sql = "UPDATE protocolo SET status='E',quantidadeContratos='".$_SESSION['total']."', dataEnvio=now(),codUsuario=".$_SESSION['codUsuario'].",codEmpresa='".$_SESSION['codEmpresaIndex']."'
+            $sql = "UPDATE protocolo SET status='E',quantidadeContratos='".$_SESSION['total']."', dataEnvio=now(),codUsuario=".$_SESSION['codUsuarioIndex'].",codEmpresa='".$_SESSION['codEmpresaIndex']."'
             WHERE codProtocolo = '".$_SESSION['codProtocolo']."';";
-            $resultadosql = mysql_query($sql) or die ("erro sql salvarFormulario".mysql_error());
+            $resultadosql = mysql_query($sql) or die ("erro sql EnviarProtocolo".mysql_error());
+
             echo "<div class=\"msgG\">Protocolo Enviado<br>
             <b>Protocolo: ".$_SESSION['codProtocolo']."</b>
             <br><br>
