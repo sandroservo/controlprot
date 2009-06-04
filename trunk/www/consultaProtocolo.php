@@ -39,6 +39,7 @@ function consultar($dado,$campo){
 
     //se for usuario normal entra nesse if caso contrario executa sql como ADM
     if ($_SESSION['nivelIndex']=='U'){
+   
     if ($dado=='todos'){
         $sql = "select * from itemProtocolo A
                 join
@@ -46,6 +47,7 @@ function consultar($dado,$campo){
                 on A.codProtocolo = B.codProtocolo
                 where B.codEmpresa=".$_SESSION['codEmpresaIndex']."
                 group by A.codProtocolo;";
+            
         $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
         }
     if ($dado=='nome'){
@@ -53,7 +55,7 @@ function consultar($dado,$campo){
                 join
                 protocolo B
                 on A.codProtocolo = B.codProtocolo
-                where A.nomeCliente like '%$campo%' and B.codEmpresa=".$_SESSION['codEmpresaIndex']."";
+                where A.nomeCliente like '%$campo%' and B.codEmpresa='".$_SESSION['codEmpresaIndex']."'";
         $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
         }
         if ($dado=='codProtocolo'){
@@ -61,7 +63,7 @@ function consultar($dado,$campo){
                 join
                 protocolo B
                 on A.codProtocolo = B.codProtocolo
-                where A.$dado ='$campo and B.codEmpresa=".$_SESSION['codEmpresaIndex']."'
+                where A.$dado ='$campo' and B.codEmpresa='".$_SESSION['codEmpresaIndex']."'
                 group by A.codProtocolo;";
         $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
         }
@@ -70,14 +72,14 @@ function consultar($dado,$campo){
                 join
                 protocolo B
                 on A.codProtocolo = B.codProtocolo
-                where A.$dado = '$campo' and B.codEmpresa=".$_SESSION['codEmpresaIndex']."";
+                where A.$dado = '$campo' and B.codEmpresa='".$_SESSION['codEmpresaIndex']."'";
             $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
             }
             //FIM IF USUARIO
         }else{
             //INICIO IF ADMINISTRADOR
             if ($dado=='todos'){
-            $sql = "select * from itemProtocolo A
+             $sql = "select * from itemProtocolo A
                 join
                 protocolo B
                 on A.codProtocolo = B.codProtocolo
@@ -124,7 +126,7 @@ echo "<th >Envio</th>
 <th >Qtd Enviado</th>
 <th >Qtd Recebido</th>
 <th >Usuário R</th>
-<th colspan=\"3\">Opções</th>
+<th colspan=\"4\">Opções</th>
 </tr>";
 
 //inicio do while para mostrar resultado da consulta
@@ -175,16 +177,19 @@ echo "<th >Envio</th>
             echo "<td><a href=\"index2.php?pagina=Consulta&tipo=alterar&cod=".$linha['codProtocolo']."\">Alterar</td>";
             echo "<td><a href=\"index2.php?pagina=Consulta&tipo=excluir&cod=".$linha['codProtocolo']."\">Excluir</td>";
             if ($_SESSION['nivelIndex']=='A'){echo "<td>Receber</td>";}
+            echo "<td>Imprimir</td>";
             }
         if($linha['status']=='E'){
           echo "<td>Alterar</td>";
           echo "<td>Excluir</td>";
           if ($_SESSION['nivelIndex']=='A'){echo "<td><a href=\"index2.php?pagina=Consulta&tipo=receber&cod=".$linha['codProtocolo']."\">Receber</td>";}
+          echo "<td><a href=\"index2.php?pagina=Consulta&tipo=imprimir&cod=".$linha['codProtocolo']."\">Imprimir</td>";
           }
           if($linha['status']=='R'){
             echo "<td>Alterar</td>";
             echo "<td>Excluir</td>";
             if ($_SESSION['nivelIndex']=='A'){echo "<td>Receber</td>";}
+            echo "<td><a href=\"index2.php?pagina=Consulta&tipo=imprimir&cod=".$linha['codProtocolo']."\">Imprimir</td>";
             }
         //FIM - verificações para mostar alterar, excluir, receber
         echo "</tr>";
@@ -192,15 +197,16 @@ echo "<th >Envio</th>
 
 $total = mysql_num_rows($resultado);
 
+
+
 echo"<tr>
-<th colspan=\"12\">Total de Registros:$total</th>
+<th colspan=\"13\">Total de Registros:$total</th>
 </tr>
 </table>
 <h5>*Status -> S = Salvo | E = Enviado | R = Recepcionado</h5>
 </div>";
         
 }
-
 
 
 function deletarProtocolo($codProtocolo){
@@ -237,9 +243,15 @@ if (array_key_exists("consultar",$_POST)){
                 $_SESSION['codProtocolo'] = $codProtocolo;
                 echo "<script>window.location=\"index2.php?pagina=Receber\"</script>";//redireciona para pagina index
                 }
-                if(!($tipo=='excluir' || array_key_exists("consultar",$_POST) || $tipo=="alterar"|| $tipo=="receber")){
-                    formulario();
+                if ($tipo=="imprimir"){
+                    $_SESSION['codProtocoloImpressao']= $codProtocolo;
+                    //echo "<script>window.location=\"index2.php?pagina=Receber\"</script>";//redireciona para pagina index
+                    $_SESSION['codProtocolo'];//envia para a var sessao imprimir cod
+                    echo "<center><a href=\"protocoloEnviado.php\" target=\"blank\">Imprimir Protocolo</a></center>";
                     }
+                    if(!($tipo=='excluir' || array_key_exists("consultar",$_POST) || $tipo=="alterar"|| $tipo=="receber" || $tipo=="imprimir")){
+                        formulario();
+                        }
 
 ?>
 
