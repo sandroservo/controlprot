@@ -129,11 +129,12 @@ if (!$total){
             if ($linha['dataUltimoLogin']==""){
                 novaSenha();
                 }else{
+        echo $_SESSION['codEmpresaIndex'];
                     $sql = "UPDATE usuarios SET dataUltimoLogin=now() where login='".$_SESSION['loginIndex']."'";
                     $resultado = mysql_query($sql);
                     echo "<script language=\"JavaScript\">
                     document.location=\"index2.php\";
-                    </script>";
+                   </script>";
                     }
             }else{
                 
