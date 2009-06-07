@@ -7,7 +7,7 @@
                background-color:#D0D0D0;
                border-style:solid;
                border-color:black;
-               border-width:1;
+               border-width:1px;
                border-right-width:0;
                font-size:12px;
                font-weight:bold;
@@ -15,11 +15,11 @@
 
                 .lk a:link,.lk a:visited{
                  color:black;
-                 font-size:12;
+                 font-size:12px;
                  background-color:#D0D0D0;
                  border-style:solid;
                  border-color:black;
-                 border-width:1;
+                 border-width:1px;
                  padding:2px;
                  display:block;
                  text-decoration:none;
@@ -76,17 +76,17 @@
                .campo_data{
                color:#808080;
                background-color:#D0D0D0;
-               font-site:12;
-               fonte-family:verdana;
+               font-size:12px;
+               font-family:verdana;
                border-style:solid;
-               border-width:1;
+               border-width:1px;
                border-color:black;
                 }
 
 
 .cabecalho  {
-width:900;
-height:100;
+width:900px;
+height:100px;
 border:1px;
 border-color:black;
 border-style:solid;
