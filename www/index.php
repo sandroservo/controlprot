@@ -154,6 +154,8 @@ if (array_key_exists("enviado",$_POST)){
         gravaNovaSenha();
         }
         if(!array_key_exists("enviadoSenha",$_POST) || !array_key_exists("enviado",$_POST)){
+            
+            
             formulario();
             }
 
