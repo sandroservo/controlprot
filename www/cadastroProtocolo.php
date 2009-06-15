@@ -115,7 +115,7 @@ $sql = "INSERT INTO protocolo (codProtocolo,dataCriacao,status,codUsuario,codEmp
 
 //inicio formulario
 function gravarItemProtocolo(){
-    $_SESSION['nome'] = ucwords($_POST['nome']);
+    $_SESSION['nome'] = ucwords(strtolower($_POST['nome']));
     $_SESSION['obs'] = ucfirst(strtolower($_POST['obs']));
     $_SESSION['cpfCnpjCliente'] = str_replace(".","",$_POST['cpfCnpjCliente']);
     $_SESSION['cpfCnpjCliente'] = str_replace("/","",$_SESSION['cpfCnpjCliente']);

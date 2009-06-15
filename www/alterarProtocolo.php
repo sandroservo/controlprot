@@ -94,7 +94,7 @@ echo "
 
 
 function gravarItemProtocolo(){
-    $_SESSION['nome'] = ucwords($_POST['nome']);
+     $_SESSION['nome'] = ucwords(strtolower($_POST['nome']));
     $_SESSION['obs'] = ucfirst(strtolower($_POST['obs']));
     $_SESSION['cpfCnpjCliente'] = str_replace(".","",$_POST['cpfCnpjCliente']);
     $_SESSION['cpfCnpjCliente'] = str_replace("/","",$_SESSION['cpfCnpjCliente']);
