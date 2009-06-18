@@ -11,7 +11,7 @@ exit;}
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <script language=\"JavaScript\" src=\"util.js\"></script>
-<link href="default.css" rel="stylesheet" type="text/css" />
+<link href="impressao.css" rel="stylesheet" type="text/css" />
   </head>
   <body onload="window.print()">
 <?php
@@ -26,7 +26,7 @@ if ($_SESSION['nivelIndex']=='U'){
         $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
         $resultado_w = mysql_query($sql) or die ("erro sql".mysql_error());
         }else{
-            $sql = "select codProtocolo,dataCriacao,status,quantidadeContratos,dataEnvio,codUsuario,codEmpresa from protocolo
+            $sql = "select quantidadeContratosRecebidos,codProtocolo,dataCriacao,status,quantidadeContratos,dataEnvio,codUsuario,codEmpresa from protocolo
         where dataEnvio BETWEEN '".$_SESSION['dtInicial']."' and '".$_SESSION['dtFinal']."';";
         $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
         $resultado_w = mysql_query($sql) or die ("erro sql".mysql_error());
@@ -35,15 +35,16 @@ if ($_SESSION['nivelIndex']=='U'){
 
 
 
-echo "<h2>Protocolo enviado por data</h2>";
+echo "<center><h3>Protocolo enviado por data</h3>";
 
-echo "<br>";
-echo "<table border=\"1\" width=\"800\" cellspacing=\"0\" bordercolor=\"black\">
+
+echo "<table border=\"1\" width=\"710\" cellspacing=\"0\" bordercolor=\"black\">
     <tr>
         <th >Protocolo</th>
         <th >Criado em:</th>
         <th >Enviado em:</th>
         <th >Qte Contratos</th>
+        <th >Recebidos</th>
         <th >Usuário</th>
     </tr>
     ";
@@ -54,6 +55,7 @@ while ($linha = mysql_fetch_assoc($resultado_w)){
         <td class=\"resultadoImpressao\">".mysql_datetime_para_humano($linha['dataCriacao'])."</td>
         <td class=\"resultadoImpressao\">".mysql_datetime_para_humano($linha['dataEnvio'])."</td>
         <td class=\"resultadoImpressao\">".$linha['quantidadeContratos']."</td>
+        <td class=\"resultadoImpressao\">".$linha['quantidadeContratosRecebidos']."</td>
         <td class=\"resultadoImpressao\">".$linha['codUsuario']."</td>
         </tr>";
     }
@@ -62,7 +64,7 @@ while ($linha = mysql_fetch_assoc($resultado_w)){
     <tr>
         <th colspan=\"8\">Total de Registros:$total</th>
     </tr>
-    </table>";
+    </table></center>";
 
 ?>
   </body>
