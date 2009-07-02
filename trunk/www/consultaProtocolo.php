@@ -12,8 +12,8 @@ function formulario(){
     <thead>
     <tr>
         <td height=\"30\" class=\"descCampoConsulta\"><input type=\"radio\" name=\"dado\" value=\"codProtocolo\" CHECKED/>Numero Protocolo</td>
-        <td height=\"30\" class=\"descCampoConsulta\"><input type=\"radio\" name=\"dado\" value=\"nomeCliente\">Nome</td>
-        <!--<td height=\"30\" class=\"descCampoConsulta\"><input type=\"radio\" name=\"dado\" value=\"dataEnvio\">Data Envio</td>-->
+        <!--<td height=\"30\" class=\"descCampoConsulta\"><input type=\"radio\" name=\"dado\" value=\"nomeCliente\">Nome</td>-->
+        
         <td height=\"30\" class=\"descCampoConsulta\"><input type=\"radio\" name=\"dado\" value=\"cpfCnpjCliente\">CPF/CNPJ</td>
         <td height=\"30\" class=\"descCampoConsulta\"><input type=\"radio\" name=\"dado\" value=\"todos\">Todos</td>
 
@@ -75,9 +75,11 @@ function consultar($dado,$campo){
                 where A.$dado = '$campo' and B.codEmpresa='".$_SESSION['codEmpresaIndex']."'";
             $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
             }
-            //FIM IF USUARIO
-        }else{
-            //INICIO IF ADMINISTRADOR
+            //FIMif usuario nomal
+        }
+        //INICIO else ADMINISTRADOR
+        else{
+            
             if ($dado=='todos'){
              $sql = "select * from itemProtocolo A
                 join
@@ -112,28 +114,31 @@ function consultar($dado,$campo){
                 $resultado = mysql_query($sql) or die ("erro sql".mysql_error());
             }
         }
-echo "<div><table width=\"100%\" border=\"1\" cellspacing=\"0\" bordercolor=\"black\" align=\"center\" class=\"tabItemProtocolo\">
-<thead>
+        //FIM else administrador
+
+//Inicio para apresentar na tabela
+echo "<div><table width=\"100%\" border=\"0\" cellspacing=\"0\" bordercolor=\"black\" align=\"center\" class=\"tabItemProtocolo\">
+
 <tr >
 <th >N</th>";
 if($dado=='nomeCliente' || $dado=='cpfCnpjCliente'){
     echo "<th >Nome:</td>";
     echo "<th >CPF/CNPJ</td>";
 }
-echo "<th >Envio</th>
+echo "<th >Enviado</th>
 <th>Recepcionado</th>
-<th >Status</th>
+<th ><center>Status</center></th>
 <th >Qtd Enviado</th>
 <th >Qtd Recebido</th>
 <th >Usuário R</th>
-<th colspan=\"4\">Opções</th>
+<th>Opções</th>
 </tr>";
 
 //inicio do while para mostrar resultado da consulta
  
     while ($linha = mysql_fetch_array($resultado)){
         echo "<tr>
-        <td class=\"resultCampo\">".$linha['codProtocolo']."</td>";
+        <td class=\"resultCampo\"><b>".$linha['codProtocolo']."</b></td>";
         if($dado=='nomeCliente' || $dado=='cpfCnpjCliente'){
             echo "<td class=\"resultCampo\">".$linha['nomeCliente']."</td>";
             echo "<td class=\"resultCampo\">".$linha['cpfCnpjCliente']."</td>";
@@ -142,7 +147,7 @@ echo "<th >Envio</th>
 
         //verifica se existe algum conteudo, caso não houver apresenta caracter no lugar de nada
         if(!$linha['dataEnvio']==""){
-            echo "<td class=\"resultCampo\">".dtPadrao($linha['dataEnvio']);
+            echo "<td class=\"resultCampo\">".dtPadrao($linha['dataEnvio'])."</td>";
                 }else{
                     echo"<td class=\"resultCampo\"> - </td>";
                     }
@@ -153,9 +158,24 @@ echo "<th >Envio</th>
                 }else{
                     echo"<td class=\"resultCampo\"> - </td>";
                     }
-        echo "        
-        <td class=\"resultCampo\">".$linha['status']."</td>
-        <td class=\"resultCampo\">".$linha['quantidadeContratos']."</td>";
+        //faz verificações para apresentar botões (verde, amarelo e vermelho)
+     
+
+
+        if ($linha['status']=='R'){
+            echo "<td class=\"resultCampo\"><center><img src=\"images/b_verde.png\" alt=\"Recepcionado\"></img></center></td>";
+            }
+        if ($linha['status']=='E'){
+            echo "<td class=\"resultCampo\"><center><img src=\"images/b_amarelo.png\" alt=\"Enviado\"></img></center></td>";
+            }
+        if ($linha['status']=='S'){
+            echo "<td class=\"resultCampo\"><center><img src=\"images/b_vermelho.png\"alt=\"Salvo\"></img></center></td>";
+            }
+        //<td class=\"resultCampo\">".$linha['status']."</td>
+        
+        
+        
+        echo "<td class=\"resultCampo\">".$linha['quantidadeContratos']."</td>";
 
         //verifica se existe algum conteudo, caso não houver apresenta caracter no lugar de nada
         if(!$linha['quantidadeContratosRecebidos']==""){
@@ -171,29 +191,41 @@ echo "<th >Envio</th>
                     echo"<td class=\"resultCampo\"> - </td>";
                     }
         
-
+ echo "<td><table border =\"0\" align=\"right\"><tr>";
         //INICIO - verificações para mostar alterar, excluir, receber
         if ($linha['status']=='S'){
-            echo "<td><a href=\"index2.php?pagina=Consulta&tipo=alterar&cod=".$linha['codProtocolo']."\">Alterar</td>";
-            echo "<td><a href=\"index2.php?pagina=Consulta&tipo=excluir&cod=".$linha['codProtocolo']."\">Excluir</td>";
-            if ($_SESSION['nivelIndex']=='A'){echo "<td>Receber</td>";}
-            echo "<td>Imprimir</td>";
+            echo "<td width=\"24\"><a href=\"index2.php?pagina=Consulta&tipo=alterar&cod=".$linha['codProtocolo']."\"><img src=\"images/b_editar.png\" alt=\"Alterar\"></img></a></td>";
+            echo "<td width=\"24\"><a href=\"index2.php?pagina=Consulta&tipo=excluir&cod=".$linha['codProtocolo']."\"><img src=\"images/b_deletar.png\" alt=\"Excluir\"></img></a></td>";
+            echo "<td width=\"24\">&nbsp</td>";
+            if ($_SESSION['']=='A'){
+                    echo "<td width=\"24\">&nbsp</td>";
+                    }
+
             }
         if($linha['status']=='E'){
-          echo "<td>Alterar</td>";
-          echo "<td>Excluir</td>";
-          if ($_SESSION['nivelIndex']=='A'){echo "<td><a href=\"index2.php?pagina=Consulta&tipo=receber&cod=".$linha['codProtocolo']."\">Receber</td>";}
-          echo "<td><a href=\"index2.php?pagina=Consulta&tipo=imprimir&cod=".$linha['codProtocolo']."\">Imprimir</td>";
+
+            echo "<td width=\"24\">&nbsp</td>";
+            echo "<td width=\"24\">&nbsp</td>";
+                if ($_SESSION['nivelIndex']=='A'){
+                    echo "<td width=\"24\"><a href=\"index2.php?pagina=Consulta&tipo=receber&cod=".$linha['codProtocolo']."\"><img src=\"images/b_receber.png\" alt=\"Recepcionar\"></img></a></td>";
+                    }
+           echo "<td><a href=\"index2.php?pagina=Consulta&tipo=imprimir&cod=".$linha['codProtocolo']."\"><img src=\"images/b_imprimir.png\" alt=\"Imprimir\"></img></a></td>";
           }
           if($linha['status']=='R'){
-            echo "<td>Alterar</td>";
-            echo "<td>Excluir</td>";
-            if ($_SESSION['nivelIndex']=='A'){echo "<td>Receber</td>";}
-            echo "<td><a href=\"index2.php?pagina=Consulta&tipo=imprimir&cod=".$linha['codProtocolo']."\">Imprimir</td>";
+                if ($_SESSION['']=='A'){
+                    echo "<td width=\"24\">&nbsp</td>";
+                    }
+            echo "<td width=\"24\">&nbsp</td>";
+            echo "<td width=\"24\">&nbsp</td>";
+                echo "<td><a href=\"index2.php?pagina=Consulta&tipo=imprimir&cod=".$linha['codProtocolo']."\"><img src=\"images/b_imprimir.png\" alt=\"Imprimir\"></img></a></td>";
             }
         //FIM - verificações para mostar alterar, excluir, receber
-        echo "</tr>";
+        echo "</tr>
+        </table></td>";
+          echo "</tr>";
         }
+
+        //Fim mostrar tabela e informações
 
 $total = mysql_num_rows($resultado);
 
@@ -203,7 +235,22 @@ echo"<tr>
 <th colspan=\"13\">Total de Registros:$total</th>
 </tr>
 </table>
-<h5>*Status -> S = Salvo | E = Enviado | R = Recepcionado</h5>
+
+<table width=\"100%\"><tr><td>
+<h5><img src=\"images/b_vermelho.png\" alt=\"Salvo\"></img> Salvo <br>
+<img src=\"images/b_amarelo.png\" alt=\"Enviado\"></img> Enviado <br>
+<img src=\"images/b_verde.png\" alt=\"Recepcionado\"></img> Recepcionado</h5>
+</td>
+<td>
+<h5><img src=\"images/b_editar.png\" alt=\"Alterar\"></img> Alterar <br>
+<img src=\"images/b_deletar.png\" alt=\"Excluir\"></img> Excluir <br>
+<img src=\"images/b_receber.png\" alt=\"Recepcionar\"></img> Recepcionar<br>
+<img src=\"images/b_imprimir.png\" alt=\"Imprimir\"></img> Imprimir</h5>
+
+</td>
+</tr></table>
+
+
 </div>";
         
 }
