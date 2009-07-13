@@ -257,8 +257,12 @@ echo"<tr>
 <th colspan=\"13\">Total de Registros:$total</th>
 </tr>
 </table>
+<br>
+<table border=0 width=\"100%\">
+<td colspan=2><b>Legenda</b></td>
+<tr>
 
-<table width=\"100%\"><tr><td>
+<td>
 <h5><img src=\"images/b_vermelho.png\" alt=\"Salvo\"></img> Salvo <br>
 <img src=\"images/b_amarelo.png\" alt=\"Enviado\"></img> Enviado <br>
 <img src=\"images/b_verde.png\" alt=\"Recepcionado\"></img> Recepcionado</h5>
