@@ -79,7 +79,29 @@ function consultar($dado,$campo){
         }
         //INICIO else ADMINISTRADOR
         else{
-            
+            /*
+             * select  A.cpfCnpjCliente,
+        B.codProtocolo,
+        B.dataEnvio,
+        B.dataRecepcionado,
+        B.quantidadeContratos,
+        B.quantidadeContratosRecebidos,
+        C.nome,
+        D.nome
+        from itemProtocolo A
+                join
+                protocolo B
+                on A.codProtocolo = B.codProtocolo
+
+                join
+                empresa C
+                on C.codEmpresa = B.codEmpresa
+
+                join
+                usuarios D
+                on D.codUsuario = B.codUsuario
+                --group by A.codProtocolo*/
+
             if ($dado=='todos'){
              $sql = "select * from itemProtocolo A
                 join
