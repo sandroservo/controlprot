@@ -1,5 +1,7 @@
 <?php
 session_start();
+require "conectar.php";
+require 'util.php';
 deletarProtocolosAbertos();
 session_destroy();
 

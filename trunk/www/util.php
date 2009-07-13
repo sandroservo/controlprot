@@ -91,4 +91,3 @@ function mysql_datetime_para_humano($dt) {
     unset ($_SESSION['codProtocolo']);
     }
     //fim função deletarProtocolosAbertos
-    //_________________________________________________
