@@ -31,11 +31,11 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
     |___________________________________________________________|
     |                       Etapas                              |
     |ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½|
-    |1 - Documento                                      [75%]   |
+    |1 - Documento                                      [100%]  |
     |2 - Modelo Banco Dados                             [100%]  |
-    |3 - Desenvolvimento                                [85% ]  |
-    |4 - Testes/Implementaï¿½ï¿½o/Documentaï¿½ï¿½o      [0%  ]  |
-    |5 - Banca                                          [0%  ]  |
+    |3 - Desenvolvimento                                [100%]  |
+    |4 - Testes/Implementaï¿½ï¿½o/Documentaï¿½ï¿½o      [100%]  |
+    |5 - Banca                                          [100%]  |
     |___________________________________________________________|
 
 -->
@@ -148,7 +148,7 @@ Description: A two-column, fixed-width and lightweight template ideal for 1024x7
 
 <!--inicio rodape-->
 <div id="footer">
-	<p id="legal"><b>Controlprot - 2009</b></p>
+	<p id="legal"><b>Controlprot - 2009</b><img src=" images/bandeira.jpg"></img></p>
 </div>
 
 <div id="central">
